@@ -1,0 +1,158 @@
+_unit_id,_golden,_unit_state,_trusted_judgments,_last_judgment_at,animal_present,animal_present:confidence,animal_types,animal_types:confidence,other_animal_type,animal_present_gold,animal_types_gold,image_url,other_animal_type_gold
+2220959845,false,finalized,3,3/28/2019 00:19:58,yes,1.0,"",1.0,"",,,https://i.imgur.com/3VdIQO3.png,
+2220959846,false,finalized,3,3/28/2019 00:19:58,yes,1.0,"",1.0,"",,,https://i.imgur.com/Za9Rt0o.png,
+2220959847,false,finalized,3,3/28/2019 00:19:58,yes,1.0,"",1.0,"",,,https://i.imgur.com/VL52hWg.png,
+2220959848,false,finalized,3,3/28/2019 00:19:58,yes,1.0,"",1.0,"",,,https://i.imgur.com/ZWznjmO.png,
+2220959849,false,finalized,3,3/27/2019 23:51:44,yes,1.0,"",1.0,"",,,https://i.imgur.com/ornI0TB.png,
+2220959850,false,finalized,3,3/27/2019 23:51:44,yes,1.0,"",1.0,"",,,https://i.imgur.com/OLjU2iu.png,
+2220959851,false,finalized,3,3/27/2019 23:51:44,yes,1.0,"",1.0,"",,,https://i.imgur.com/8kY357e.png,
+2220959852,false,finalized,3,3/27/2019 23:51:44,yes,1.0,"",1.0,"",,,https://i.imgur.com/2Yd2Iq8.png,
+2220959853,false,finalized,3,3/27/2019 23:52:32,yes,1.0,"",0.8889,chameleon,,,https://i.imgur.com/KQfKhlb.png,
+2220959854,false,finalized,3,3/27/2019 23:52:32,yes,1.0,"",0.8889,chameleon,,,https://i.imgur.com/etcs2yo.png,
+2220959855,false,finalized,3,3/27/2019 23:52:32,yes,1.0,"",0.8889,chameleon,,,https://i.imgur.com/Qao2CO2.png,
+2220959856,false,finalized,3,3/27/2019 23:52:32,yes,1.0,"",0.8889,chameleon,,,https://i.imgur.com/xoBSo4m.png,
+2220959857,false,finalized,3,3/28/2019 00:22:08,yes,1.0,"",1.0,"",,,https://i.imgur.com/2JCk7JB.png,
+2220959858,false,finalized,3,3/28/2019 00:22:08,yes,1.0,"",1.0,"",,,https://i.imgur.com/byC9EX7.png,
+2220959859,false,finalized,3,3/28/2019 00:22:08,yes,1.0,"",1.0,"",,,https://i.imgur.com/VTcPeVg.png,
+2220959860,false,finalized,3,3/28/2019 00:22:08,yes,1.0,"",1.0,"",,,https://i.imgur.com/T2XYXTd.png,
+2220959861,false,finalized,3,3/27/2019 23:50:48,yes,1.0,"",0.7,chameleon,,,https://i.imgur.com/QgNyYtQ.png,
+2220959862,false,finalized,3,3/27/2019 23:50:48,yes,1.0,"",0.7,chameleon,,,https://i.imgur.com/u059Tlt.png,
+2220959863,false,finalized,3,3/27/2019 23:50:48,yes,1.0,"",0.7,chameleon,,,https://i.imgur.com/anh1JJZ.png,
+2220959864,false,finalized,3,3/27/2019 23:50:48,yes,1.0,"",0.7,chameleon,,,https://i.imgur.com/Xj19WqA.png,
+2220959865,false,finalized,3,3/27/2019 23:51:13,yes,1.0,"",1.0,"",,,https://i.imgur.com/NDPlj7R.png,
+2220959866,false,finalized,3,3/27/2019 23:51:13,yes,1.0,"",1.0,"",,,https://i.imgur.com/ENZMYxN.png,
+2220959867,false,finalized,3,3/27/2019 23:51:13,yes,1.0,"",1.0,"",,,https://i.imgur.com/AwA6nBw.png,
+2220959868,false,finalized,3,3/27/2019 23:51:13,yes,1.0,"",1.0,"",,,https://i.imgur.com/UBiOMBx.png,
+2220959869,false,finalized,3,3/27/2019 23:50:42,yes,1.0,"",1.0,"",,,https://i.imgur.com/Ttxrmyo.png,
+2220959870,false,finalized,3,3/27/2019 23:50:42,yes,1.0,"",1.0,"",,,https://i.imgur.com/4gIixGX.png,
+2220959871,false,finalized,3,3/27/2019 23:50:42,yes,1.0,"",1.0,"",,,https://i.imgur.com/036sW53.png,
+2220959872,false,finalized,3,3/27/2019 23:50:42,yes,1.0,"",1.0,"",,,https://i.imgur.com/kfdrqGT.png,
+2220959873,false,finalized,3,3/27/2019 23:52:31,no,1.0,,,"",,,https://i.imgur.com/YLb1bfQ.png,
+2220959874,false,finalized,3,3/27/2019 23:52:31,no,1.0,,,"",,,https://i.imgur.com/hKliHi4.png,
+2220959875,false,finalized,3,3/27/2019 23:52:31,yes,1.0,"",1.0,"",,,https://i.imgur.com/BhjGxoc.png,
+2220959876,false,finalized,3,3/27/2019 23:52:31,yes,1.0,"",1.0,"",,,https://i.imgur.com/X8UsZgs.png,
+2220959877,false,finalized,3,3/27/2019 23:52:56,yes,1.0,"",1.0,"",,,https://i.imgur.com/2D2CZkR.png,
+2220959878,false,finalized,3,3/27/2019 23:52:56,no,1.0,,,"",,,https://i.imgur.com/gExp5ga.png,
+2220959879,false,finalized,3,3/27/2019 23:52:56,no,1.0,,,"",,,https://i.imgur.com/XRzsYLw.png,
+2220959880,false,finalized,3,3/27/2019 23:52:56,no,1.0,,,"",,,https://i.imgur.com/2sQKnDO.png,
+2220959881,false,finalized,3,3/27/2019 23:53:00,no,1.0,,,"",,,https://i.imgur.com/Y7Rhsxu.png,
+2220959882,false,finalized,3,3/27/2019 23:53:00,yes,0.8889,"",0.8889,"",,,https://i.imgur.com/SMlFTQ6.png,
+2220959883,false,finalized,3,3/27/2019 23:53:00,yes,0.8889,"",0.8889,"",,,https://i.imgur.com/SfvR06h.png,
+2220959884,false,finalized,3,3/27/2019 23:53:00,yes,0.8889,"",0.8889,"",,,https://i.imgur.com/PwzjR0E.png,
+2220959885,false,finalized,3,3/27/2019 23:53:55,no,1.0,,,"",,,https://i.imgur.com/YbY0q1c.png,
+2220959886,false,finalized,3,3/27/2019 23:53:55,no,1.0,,,"",,,https://i.imgur.com/ZZ9s8Br.png,
+2220959887,false,finalized,3,3/27/2019 23:53:55,no,1.0,,,"",,,https://i.imgur.com/kImM8Iu.png,
+2220959888,false,finalized,3,3/27/2019 23:53:55,no,1.0,,,"",,,https://i.imgur.com/zM0LVrF.png,
+2220959889,false,finalized,3,3/28/2019 00:21:33,no,1.0,,,"",,,https://i.imgur.com/AvG5qtO.png,
+2220959890,false,finalized,3,3/28/2019 00:21:33,no,1.0,,,"",,,https://i.imgur.com/6qHLoav.png,
+2220959891,false,finalized,3,3/28/2019 00:21:33,no,1.0,,,"",,,https://i.imgur.com/2BXmZEr.png,
+2220959892,false,finalized,3,3/28/2019 00:21:33,yes,1.0,"",1.0,"",,,https://i.imgur.com/baLYM1f.png,
+2220959893,false,finalized,3,3/27/2019 23:54:16,yes,0.8571,"",0.8571,"",,,https://i.imgur.com/zJCHWJV.png,
+2220959894,false,finalized,3,3/27/2019 23:54:16,yes,0.8571,"",0.8571,"",,,https://i.imgur.com/cbIobMO.png,
+2220959895,false,finalized,3,3/27/2019 23:54:16,yes,0.8571,"",0.8571,"",,,https://i.imgur.com/oLtJ4X4.png,
+2220959896,false,finalized,3,3/27/2019 23:54:16,yes,0.8571,"",0.8571,"",,,https://i.imgur.com/HmJHkWL.png,
+2220959897,false,finalized,3,3/27/2019 23:57:35,no,0.5882,,,"",,,https://i.imgur.com/idfI2Mn.png,
+2220959898,false,finalized,3,3/27/2019 23:57:35,no,0.5882,,,"",,,https://i.imgur.com/aIu7j3y.png,
+2220959899,false,finalized,3,3/27/2019 23:57:35,no,0.5882,,,"",,,https://i.imgur.com/8WfzpBc.png,
+2220959900,false,finalized,3,3/27/2019 23:57:35,no,0.5882,,,"",,,https://i.imgur.com/bz0kczZ.png,
+2220959901,false,finalized,3,3/27/2019 23:56:42,yes,1.0,"",0.8182,scorpio,,,https://i.imgur.com/NLRJNFo.png,
+2220959902,false,finalized,3,3/27/2019 23:56:42,yes,1.0,"",0.8182,scorpio,,,https://i.imgur.com/kaCA7D3.png,
+2220959903,false,finalized,3,3/27/2019 23:56:42,yes,1.0,"",0.8182,scorpio,,,https://i.imgur.com/jISH6dd.png,
+2220959904,false,finalized,3,3/27/2019 23:56:42,yes,1.0,"",0.8182,scorpio,,,https://i.imgur.com/4h4TE6W.png,
+2220959905,false,finalized,3,3/27/2019 23:56:34,no,0.5294,,,"",,,https://i.imgur.com/h67uMiH.png,
+2220959906,false,finalized,3,3/27/2019 23:56:34,yes,0.8824,"",0.8824,"",,,https://i.imgur.com/WsBKRaH.png,
+2220959907,false,finalized,3,3/27/2019 23:56:34,yes,1.0,"",0.8824,scorpion,,,https://i.imgur.com/K3CA31A.png,
+2220959908,false,finalized,3,3/27/2019 23:56:34,yes,1.0,"",0.8824,scorpion,,,https://i.imgur.com/Nb707aI.png,
+2220959909,false,finalized,3,3/27/2019 23:55:52,no,0.6875,,,"",,,https://i.imgur.com/ztDJGwH.png,
+2220959910,false,finalized,3,3/27/2019 23:55:52,no,0.6875,,,"",,,https://i.imgur.com/rLiwFbn.png,
+2220959911,false,finalized,3,3/27/2019 23:55:52,no,1.0,,,"",,,https://i.imgur.com/1FztWB1.png,
+2220959912,false,finalized,3,3/27/2019 23:55:52,no,1.0,,,"",,,https://i.imgur.com/G2vRJjh.png,
+2220959913,false,finalized,3,3/27/2019 23:56:29,no,1.0,,,"",,,https://i.imgur.com/orLdDvL.png,
+2220959914,false,finalized,3,3/27/2019 23:56:29,no,1.0,,,"",,,https://i.imgur.com/c3xwpXv.png,
+2220959915,false,finalized,3,3/27/2019 23:56:29,no,1.0,,,"",,,https://i.imgur.com/xmB6Rph.png,
+2220959916,false,finalized,3,3/27/2019 23:56:29,no,1.0,,,"",,,https://i.imgur.com/t91qlio.png,
+2220959917,false,finalized,3,3/27/2019 23:56:13,no,1.0,,,"",,,https://i.imgur.com/nFcswKj.png,
+2220959918,false,finalized,3,3/27/2019 23:56:13,no,1.0,,,"",,,https://i.imgur.com/P6c2KJk.png,
+2220959919,false,finalized,3,3/27/2019 23:56:13,no,1.0,,,"",,,https://i.imgur.com/hEz2804.png,
+2220959920,false,finalized,3,3/27/2019 23:56:13,no,1.0,,,"",,,https://i.imgur.com/UJi8fRV.png,
+2220959921,false,finalized,3,3/27/2019 23:56:07,no,1.0,,,"",,,https://i.imgur.com/IlCWHrC.png,
+2220959922,false,finalized,3,3/27/2019 23:56:07,no,1.0,,,"",,,https://i.imgur.com/B4AzIjE.png,
+2220959923,false,finalized,3,3/27/2019 23:56:07,no,1.0,,,"",,,https://i.imgur.com/1q731DL.png,
+2220959924,false,finalized,3,3/27/2019 23:56:07,no,1.0,,,"",,,https://i.imgur.com/QVpT9Rm.png,
+2220959925,false,finalized,3,3/27/2019 23:56:48,no,0.6667,,,"",,,https://i.imgur.com/slPMbss.png,
+2220959926,false,finalized,3,3/27/2019 23:56:48,no,1.0,,,"",,,https://i.imgur.com/doEeNm6.png,
+2220959927,false,finalized,3,3/27/2019 23:56:48,no,1.0,,,"",,,https://i.imgur.com/JrFRmU5.png,
+2220959928,false,finalized,3,3/27/2019 23:56:48,no,1.0,,,"",,,https://i.imgur.com/3xYo2V9.png,
+2220959929,false,finalized,3,3/28/2019 00:02:49,yes,0.5714,"",0.5714,"",,,https://i.imgur.com/gzEVmI8.png,
+2220959930,false,finalized,3,3/28/2019 00:02:49,yes,0.5714,"",0.5714,"",,,https://i.imgur.com/XYQoVy5.png,
+2220959931,false,finalized,3,3/28/2019 00:02:49,yes,0.5714,"",0.5714,"",,,https://i.imgur.com/4y4t10c.png,
+2220959932,false,finalized,3,3/28/2019 00:02:49,yes,0.5714,"",0.5714,"",,,https://i.imgur.com/60RVODx.png,
+2220959933,false,finalized,3,3/27/2019 23:58:07,no,0.6667,,,"",,,https://i.imgur.com/gMnAQTk.png,
+2220959934,false,finalized,3,3/27/2019 23:58:07,no,0.6667,,,"",,,https://i.imgur.com/D70O9pD.png,
+2220959935,false,finalized,3,3/27/2019 23:58:07,no,0.6667,,,"",,,https://i.imgur.com/0TURv9h.png,
+2220959936,false,finalized,3,3/27/2019 23:58:07,no,1.0,,,"",,,https://i.imgur.com/3h4EnpM.png,
+2220959937,false,finalized,3,3/27/2019 23:57:53,yes,0.6667,"",0.6667,"",,,https://i.imgur.com/ufvMw3l.png,
+2220959938,false,finalized,3,3/27/2019 23:57:53,no,1.0,,,"",,,https://i.imgur.com/RNPfrb7.png,
+2220959939,false,finalized,3,3/27/2019 23:57:53,no,1.0,,,"",,,https://i.imgur.com/lbdHzud.png,
+2220959940,false,finalized,3,3/27/2019 23:57:53,yes,0.6667,"",0.6667,"",,,https://i.imgur.com/FdFoea3.png,
+2220959941,false,finalized,3,3/27/2019 23:58:22,yes,0.5882,"",0.5882,"",,,https://i.imgur.com/aEnS2Y7.png,
+2220959942,false,finalized,3,3/27/2019 23:58:22,yes,0.5882,"",0.5882,"",,,https://i.imgur.com/9kO8tLR.png,
+2220959943,false,finalized,3,3/27/2019 23:58:22,yes,0.5882,"",0.5882,"",,,https://i.imgur.com/H4bMzUJ.png,
+2220959944,false,finalized,3,3/27/2019 23:58:22,yes,0.5882,"",0.5882,"",,,https://i.imgur.com/TqboHbY.png,
+2220960834,true,golden,31,"",yes,0.9864,"",0.772,"snail
+snail
+snail
+snail
+snail
+seasnail
+snail
+snail
+snail
+snail
+nail
+snail",yes,,https://i.imgur.com/X8UsZgs.png,
+2220960987,true,golden,31,"",no,0.9515,,,"",no,,https://i.imgur.com/1q731DL.png,
+2220961025,true,golden,28,"",yes,0.9536,"",0.8078,"snail
+snail
+snail
+snail
+snail
+snail
+snail
+nail
+snail",yes,,https://i.imgur.com/BhjGxoc.png,
+2220961292,true,golden,30,"",yes,0.8651,"",0.6818,"snail
+snail
+snail
+snail
+seasnail
+nothing
+snail
+snail
+snail
+nail
+snail",yes,,https://i.imgur.com/2D2CZkR.png,
+2220961359,true,golden,31,"",yes,1.0,"",0.791,"snail
+snail
+snail
+snail
+snail
+snail
+snail
+snail
+snail
+snail
+nail
+snail",yes,,https://i.imgur.com/SfvR06h.png,
+2220961402,true,golden,29,"",yes,0.9589,"",0.8421,"snail
+snail
+snail
+snail
+snail
+snail",yes,,https://i.imgur.com/SMlFTQ6.png,
+2220962052,true,golden,28,"",no,1.0,,,"",no,,https://i.imgur.com/slPMbss.png,
+2220962407,true,golden,27,"",yes,0.9375,"",0.84,"snail
+snail
+seasnail
+snail
+snail",yes,,https://i.imgur.com/PwzjR0E.png,
