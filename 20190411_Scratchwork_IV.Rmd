@@ -1,0 +1,359 @@
+---
+title: "20190411_Scratchwork_IV"
+author: "Vivian Lu"
+date: "4/12/2019"
+output: pdf_document
+---
+
+# Manipulation here 
+
+```{r}
+######
+# Load in data 
+###### 
+
+raw <- read.csv('combined_scores_by_worker.csv', sep=',', header=TRUE) #no one dropped! 
+
+# Some extra manipulation: we want the trust value for each one 
+
+full_raw <- read.csv('combined_raw_data_nodrop_20190407.csv', sep=',', header=TRUE)
+```
+
+
+```{r}
+# Get trust value 
+
+trust_df <- unique(full_raw[,c('X_worker_id','X_trust')])
+
+# merge 
+raw_merged = merge(raw, trust_df)
+```
+
+
+# Exploratory 
+```{r}
+######
+# Exploratory stuff 
+###### 
+
+control <- raw_merged[raw_merged['treatment']=='control',] #75 people 
+publicgood <- raw_merged[raw_merged['treatment']=='publicgood',] #122 people
+evaluation <- raw_merged[raw_merged['treatment']=='evaluation',] #86 people 
+
+# let's see what the averages look like: 
+control_avg <- mean(control[,'score'])
+publicgood_avg <- mean(publicgood[,'score'])
+evaluation_avg <- mean(evaluation[,'score'])
+
+control_sd <-sd(control[,'score'])
+publicgood_sd <- sd(publicgood[,'score'])
+evaluation_sd <- sd(evaluation[,'score'])
+
+control_trust <- mean(control[,'X_trust'])
+publicgood_trust <- mean(publicgood[,'X_trust'])
+evaluation_trust <- mean(evaluation[,'X_trust'])
+
+control_trust_sd <- sd(control[,'X_trust'])
+publicgood_trust_sd<-sd(publicgood[,'X_trust'])
+evaluation_trust_sd<-sd(evaluation[,'X_trust'])
+
+avg_vector <- c(control_avg, publicgood_avg, evaluation_avg) 
+sd_vector <- c(control_sd, publicgood_sd, evaluation_sd)
+avg_trust_vector<-c(control_trust, publicgood_trust, evaluation_trust) 
+sd_trust_vector<-c(control_trust_sd, publicgood_trust_sd, evaluation_trust_sd)
+average_df <- data.frame(avg_vector, sd_vector,avg_trust_vector, sd_trust_vector,row.names=c('control','publicgood','evaluation'))
+colnames(average_df)<-c('average_score', 'stdev_score','avg_trust','sd_trust')
+average_df
+```
+
+Q: Do we need to make confidence intervals or t-tests for these? 
+Right off the bat, we can tell that we won't have much an effect very likely
+
+```{r}
+# Funny how it seems like control had higher accuracy than other instructions 
+publicgood_avg - control_avg #-0.02537871
+evaluation_avg - control_avg #-0.02997051 
+```
+
+# How many people complied? (those who got the question, how many got it right? )
+```{r}
+# Remember: Compliance question = snail photo (look at label) -> answer must be NO. 
+get_compliers <- function(df, trtmt) {
+  subdf <- df[df['treatment']==trtmt & df['label']=='Snail',]
+  contributors <- unique(subdf[,'X_worker_id']) 
+  compliance_score <- c()
+  trust_vector<-c()
+  for (i in 1:length(contributors)) {
+    v<-mean(subdf[subdf['X_worker_id']==contributors[i],][,'correct'])
+    compliance_score[i]<-v
+    # get trust 
+    t<-subdf[subdf['X_worker_id']==contributors[i],][,'X_trust'][1]
+    trust_vector[i]<-t
+  }
+  return(data.frame(contributors, compliance_score, trust_vector))
+}
+
+# total compliers 
+control_compliers<-get_compliers(full_raw, 'control') 
+publicgood_compliers<-get_compliers(full_raw,'publicgood')
+evaluation_compliers<-get_compliers(full_raw,'evaluation')
+
+total_compliance<-c(dim(control_compliers)[1], dim(publicgood_compliers)[1],dim(evaluation_compliers)[1]) 
+actual_compliers<-c(dim(control_compliers[control_compliers['compliance_score']>0,])[1], dim(publicgood_compliers[publicgood_compliers['compliance_score']>0,])[1], dim(evaluation_compliers[evaluation_compliers['compliance_score']>0,])[1]) 
+prop_compliers<-actual_compliers/total_compliance
+compliers_df<-data.frame(total_compliance,actual_compliers, prop_compliers, row.names=c('control','publicgood','evaluation'))
+compliers_df
+```
+
+So we know that there probably was some setting somewhere that led us to have 75% compliance in all groups.....we just don't know where...
+
+# Check to see if trust scores varied amongst compliers in each group 
+# From Micah: trust is something that is not impacted by the instructions (it's something prior to even running the experiment). 
+# This gives us some peace of mind knowing that not receiving the compliance question was NOT related to potential outcomes (therefore if we drop people who didn't get the compliance, it's not an attrition bias). 
+# See MicahOH.txt (Vivian) 
+
+```{r}
+### THIS IS AMONGST PEOPLE WHO DID RECEIVE THE COMPLIANCE QUESTIONS 
+
+get_avg_comply_trust <- function(df){
+  avg_comply<-mean(df[df['compliance_score']>0,][,'trust_vector'])
+  return(avg_comply)
+}
+
+get_avg_noncomply_trust <- function(df){
+  avg_noncomply<-mean(df[df['compliance_score']==0,][,'trust_vector'])
+  return(avg_noncomply)
+}
+
+trust_avgs<-c(get_avg_comply_trust(control_compliers), get_avg_comply_trust(publicgood_compliers), get_avg_comply_trust(evaluation_compliers))
+trust_noncompliers_avgs<-c(get_avg_noncomply_trust(control_compliers), get_avg_noncomply_trust(publicgood_compliers), get_avg_noncomply_trust(evaluation_compliers))
+
+compliers_df['complier_trust_avgs']<-trust_avgs 
+compliers_df['noncomplier_trust_avgs']<-trust_noncompliers_avgs
+compliers_df
+```
+
+so it looks like there isn't much difference between trust scores amongst compliers and non compliers (for those who DID get the compliance questions)
+
+**Note:** possibly add in trust value as covariate? 
+
+
+So is there a difference between trust for those who did and did not get compliance? 
+```{r}
+get_nocompl_q <- function(df, trtmt) {
+  subdf <- df[df['treatment']==trtmt & df['label']!='Snail',]
+  contributors <- unique(subdf[,'X_worker_id']) 
+  trust_vector<-c()
+  for (i in 1:length(contributors)) {
+    # get trust 
+    t<-subdf[subdf['X_worker_id']==contributors[i],][,'X_trust'][1]
+    trust_vector[i]<-t
+  }
+  return(data.frame(contributors, trust_vector))
+}
+
+nocompl_q_control<-get_nocompl_q(full_raw,'control')
+nocompl_q_publicgood<-get_nocompl_q(full_raw,'publicgood')
+nocompl_q_evaluation<-get_nocompl_q(full_raw,'evaluation')
+
+nocompl_q_avg<-c(mean(nocompl_q_control[['trust_vector']]),mean(nocompl_q_publicgood[['trust_vector']]),mean(nocompl_q_evaluation[['trust_vector']]))
+nocompl_q_std<-c(sd(nocompl_q_control[['trust_vector']]),sd(nocompl_q_publicgood[['trust_vector']]),sd(nocompl_q_evaluation[['trust_vector']]))
+nocompl_df<-data.frame(nocompl_q_avg, nocompl_q_std, row.names=c('control','publicgood','evaluation'))
+nocompl_df
+
+
+# everyone who did not get compliance questions: 
+# each column is avg or sd of trust scores 
+```
+
+Compare against those who did get the compliance question: trust scores 
+```{r}
+compl_q_avg<-c(mean(control_compliers[['trust_vector']]),mean(publicgood_compliers[['trust_vector']]),mean(evaluation_compliers[['trust_vector']]))
+compl_q_std<-c(sd(control_compliers[['trust_vector']]),sd(publicgood_compliers[['trust_vector']]),sd(evaluation_compliers[['trust_vector']]))
+compl_df<-data.frame(compl_q_avg, compl_q_std, row.names=c('control','publicgood','evaluation'))
+compl_df
+```
+
+**What other tests should we do to show that there wasn't a difference between those who got compliance Q's or not? Randomization inference????**
+
+So we still get 134 total people for our evaluation if we drop those who didn't get compliance question. This already killed off our sample size (and even more so if we drop repeaters)
+
+# Finally, how many people overlapped? 
+```{r}
+# Finally: how many people overlapped? 
+# We probably don't have to do anything regarding repeaters 
+# given we have the logic to argue for no-persistence 
+# (moreover, we're already dying with possibly dropping people who didn't get compliance question) 
+
+length(intersect(unique(control[['X_worker_id']]),unique(publicgood[['X_worker_id']]))) #10
+length(intersect(unique(control[['X_worker_id']]),unique(evaluation[['X_worker_id']]))) #7
+length(intersect(unique(publicgood[['X_worker_id']]),unique(evaluation[['X_worker_id']]))) #23 
+```
+
+
+
+#######
+## IVREG 
+####### 
+
+Instrumental variable regression: 
+Let's do this amongst those who DID get the compliance questions 
+We have no data amongst those who did not get the compliance question (meaning we would not know if they would have read or not). 
+For the data we do have that is complete (i.e. trustworthy-ness), those who did vs. those who did not get compliance questions should not be different from each other (i.e. they won't have different potential outcomes )
+
+We are dealing with one-sided compliance: in control, you are not offered a treatment (you can't choose to take the treatment during that day we released the control test)
+- you techncially COULD have taken the treatment if u took more than 1 test (the repeaters), but we assume no persistence (timing between tests > 1 day, avg test length was ~ 1 minute). 
+- In hindsight: If you DID have persistence, you should technically have "learned" the test already (but we don't see the improvement in score). 
+
+On another note: 
+- if you scored poorly, or got certain questions wrong, it's possible that you as a contributor might have had English as a second language (and therefore not understood instructions/questions). 
+- Considering how our contributors came from countries where English was not the first language of a choice 
+- Distribution of countries across across all our pilots + control + treatment 1 + treatment 2 (Sergio). ** You care about number of countries that did not have English as a first language** 
+
+Assumptions with instrumnetal variable regression 
+* (not really an assumption, but we need to address this) Assignment is independent of potential outcomes 
+  - (1) assignment for us was based on DAY (which we assume independence to PO). 
+    We realize this is not random assignment on individual but based on the evidence that we have above (i.e. trustworthiness), there isn't really anything to suggest the crowds on different days would have different potential outcomes. 
+* non interference assumption (p.155): potential outcomes for each individual are unaffected by assignment or treatment of any other individuals. 
+  - individuals can't really "discuss" (we won't know if they do technically speaking), and you can't observe someone else's performance 
+* exclusion restriction  (p.156): a subject's treatment assignment does not matter once we account for whether a subject is actually treated 
+  - p. 156 "Suppose that the attempt to treat someone assigned to the treatment group has an effect on the subject APART from the effect of the treatment itself" -> exclusion restriction 
+  - I think here, we have to pick apart using IV 
+  Random assignemnt: the treatment group you are assigned to (essentially the day)
+  Treatment received: the instructions you got (which you read if you answered compliance correctly)
+  **What should happen:Random assignment affects outcomes only through treatment received** 
+    
+We want to know the average treatment effect amongst compliers (p. 150 in text) 
+
+```{r}
+# get those who did get compliance questions into 1 dataframe 
+# control_compliers, publicgood_compliers, evaluation_compliers 
+
+all_compl_q_workers<-rbind(control_compliers, publicgood_compliers, evaluation_compliers)
+
+# make a column under the raw_merged table: 'received_compliance_q'
+# 1 if received (in the groups mentioned above), 0 if not (not in the groups mentioned above) 
+received_compliance_q<-c()
+for (i in 1:length(raw_merged[,'X_worker_id'])) {
+  l<-dim(all_compl_q_workers[all_compl_q_workers['contributors']==raw_merged[,'X_worker_id'][i],])[1]
+  if (l>0){
+    received_compliance_q[i]<-1
+  } else {
+    received_compliance_q[i]<-0
+  }
+}
+
+raw_merged['received_compliance_q']<-received_compliance_q
+```
+
+At this point, drop those who did not get compliance q (received_compliance_q == 0)
+
+```{r}
+only_received_compl_q <- raw_merged[raw_merged['received_compliance_q']==1,] 
+# left with 149 people 
+```
+
+Final column to insert: 1 for complier, 0 for noncomplier (given that you received compliance question, 'received_compliance_q'==1)
+```{r}
+
+control_compliers['trtmt']<-rep('control', dim(control_compliers)[1])
+publicgood_compliers['trtmt']<-rep('publicgood', dim(publicgood_compliers)[1])
+evaluation_compliers['trtmt']<-rep('evaluation', dim(evaluation_compliers)[1]) 
+
+all_compl_q_workers<-rbind(control_compliers, publicgood_compliers, evaluation_compliers)
+all_compl_q_workers['complied']<-ifelse(all_compl_q_workers[,'compliance_score']>0,1,0)
+colnames(all_compl_q_workers)<-c('X_worker_id','compliance_score','trust_vector','treatment','complied')
+```
+
+Now merge the all_compl_q_workers onto our only_received_compl_q based on 2 indexes: 
+X_worker_id, treatment 
+
+```{r}
+df_final<-merge(all_compl_q_workers, only_received_compl_q, by.y=c('X_worker_id','treatment'))
+```
+
+One thing to keep in mind: my outcome variable is not in % (it's a decimal)
+
+# 2sls 
+
+1st part: regress outcome on assigned treatment 
+
+```{r}
+library(lmtest)
+library(sandwich)
+
+# Keep in mind: this is amongst people who DID get compliance questions 
+
+# this is equivalent to just difference in means estimator (ITT)
+itt_fit<-lm(score ~ treatment, data=df_final)
+coeftest(itt_fit, vcovHC(itt_fit))
+```
+
+**Q: Do we need to do randomization inference to get CI around ITT?? p.158**
+- shuffle the treatment column, and get standard error from distribution 
+p.161 randomization inference is needed for SE of CACE 
+
+Now to get ITT_D 
+regress actual treatment on assigned treatment 
+In this case, assigned treatment is our treatment column 
+actual treatment = did you comply (our complier column)? 
+
+```{r}
+itt_d_fit<-lm(complied ~ treatment, data=df_final) 
+coeftest(itt_d_fit, vcovHC(itt_d_fit))
+# I do see 75%...good news...????? 
+```
+
+
+#IVREG 
+```{r}
+# recall: everyone here is ONLY the people who got compliance question 
+library(AER) 
+# complied = did you answer compliance question correctly (treated) 
+# treatment = assignment to treatment group (assigned)
+
+
+cace_fit <- ivreg(score ~ complied, ~treatment, data=df_final)
+coeftest(cace_fit, vcovHC(cace_fit))
+# I have no idea how to interpret these? 
+# Not that it really matters...our standard error is huge 
+```
+
+p.160 mentions how you would calculate 95% CI for CACE 
+
+# Possible thing to try later with ivreg: 
+Instead of dropping people who did not get compliance question, let's take everyone: 
+assignment should be wheteher u received compliance question (2 levels) within treatments
+
+Vivian - ivreg (try one more time)
+
+I was thinking something like this for ivreg... everyone got compliance questions but the only ones that count are those in the treatment. Your treated column should be -> they answered the complianc question correctly AND they were in the treatment group
+your assigned column should be -> they got the compliance question AND they were in the treatment group.
+This is the closest I can think of control (compliance question doesn't make a difference), non compliers (got the instruction but didn't read it) and compliers (got it and read it) 
+
+ivreg (score ~ treated, ~assigned)
+
+data -> treatment == evaluation
+data -> treatment == publicgood
+so it's 2 ivregs
+
+Aditi - randomization inference 
+
+I. Intro + motivation 
+  Why we chose 2 treatment branches 
+  What is a non-monetary way of enocuraging contributors to answer with more effort? 
+    Instructions, or like variation 
+II. first pilot
+  summary stats 
+  justification for changes
+III. 2nd pilot
+  summary stats 
+  justification for changes 
+IV. Design changes to final experiment
+  justification for changes 
+V. Launch true experiment 
+  screenshots of instructions 
+VI. results 
+  All assumptions for 2sls 
+VII. caveats 
+VIII. conclusion 

@@ -1,0 +1,284 @@
+_worker_id,score,_channel,_trust,_country,_region,_city,_ip,treatment
+44101988,0.9,clixsense,0.9167,IND,10,Ladwa,49.32.59.102,control
+44058261,0.8666666666666667,neodev,1.0,VEN,,,190.206.195.19,control
+45131917,0.9636363636363636,neodev,1.0,VEN,25,Caracas,201.243.196.131,control
+44681831,0.9666666666666667,neodev,1.0,VEN,,,201.210.222.106,control
+45186503,0.8666666666666667,neodev,0.9,VEN,15,Bachaquero,200.93.112.211,control
+45161091,0.95,feca,1.0,VEN,,,190.77.44.97,control
+43650017,0.92,neodev,1.0,VEN,25,Caracas,186.94.206.222,control
+36985538,0.85,neodev,1.0,VEN,,,186.93.114.206,control
+45158923,0.8222222222222222,feca,1.0,ESP,29,Madrid,83.46.37.129,control
+44749466,0.9166666666666666,neodev,1.0,VEN,,,186.95.231.2,control
+45180140,0.8833333333333333,feca,0.75,EGY,11,Cairo,41.69.48.196,control
+36143603,1.0,eup_slw,1.0,TUR,,,176.88.198.138,control
+44678667,0.9333333333333333,neodev,1.0,VEN,,,201.210.223.159,control
+45171183,0.72,feca,1.0,COL,34,Bogota,179.51.109.34,control
+39661164,0.96,neodev,1.0,VEN,,,186.90.174.20,control
+45189211,0.7,feca,1.0,VEN,25,Caracas,201.210.249.87,control
+45156824,0.95,feca,1.0,HRV,21,Zagreb,93.136.107.203,control
+35747808,1.0,clixsense,1.0,VEN,,,200.109.200.231,control
+41841415,0.7,neodev,1.0,VEN,19,Carúpano,190.206.252.252,control
+45192770,0.8571428571428571,clixsense,1.0,VEN,25,Caracas,186.167.243.219,control
+41347559,0.95,clixsense,1.0,VEN,,,186.90.174.20,control
+45155677,0.95,feca,1.0,VEN,07,Valencia,190.202.185.192,control
+43671265,0.85,neodev,1.0,VEN,,,186.90.196.247,control
+45181825,0.9333333333333333,feca,1.0,VEN,,,190.76.250.207,control
+45204422,0.9,feca,1.0,COL,,,186.115.70.60,control
+43692556,0.95,neodev,1.0,VEN,25,Caracas,186.90.189.8,control
+45065671,0.7333333333333333,clixsense,1.0,VEN,02,Barcelona,190.207.64.202,control
+44475220,0.8,neodev,1.0,VEN,02,Barcelona,190.207.65.239,control
+36957773,1.0,neodev,1.0,ARG,05,Cordoba,181.28.7.100,control
+45184039,0.7,feca,0.5,EGY,11,Cairo,197.49.172.19,control
+44845129,1.0,neodev,1.0,CHL,12,Santiago,190.160.11.30,control
+45173060,0.9,clixsense,1.0,VEN,25,Caracas,186.167.248.116,control
+45159721,1.0,feca,1.0,VEN,19,Agua Fría,190.198.245.10,control
+45196638,1.0,clixsense,1.0,VEN,25,Caracas,186.93.74.217,control
+44223122,1.0,neodev,1.0,VEN,25,Caracas,201.210.254.140,control
+43690212,1.0,neodev,1.0,VEN,16,Maturín,190.77.220.190,control
+45162371,0.7,feca,1.0,USA,FL,Miami,23.27.45.175,control
+45189901,0.8,feca,1.0,VEN,25,Caracas,186.167.245.111,control
+38661505,1.0,neodev,1.0,VEN,15,San Antonio De Los Altos,181.17.1.97,control
+45178163,1.0,feca,1.0,VEN,,,190.201.29.248,control
+6591664,1.0,clixsense,1.0,MEX,09,Mexico,189.236.113.116,control
+45205328,1.0,feca,1.0,VEN,25,Caracas,190.201.153.158,control
+45086319,1.0,neodev,1.0,VEN,25,Caracas,201.210.245.106,control
+45058546,1.0,clixsense,1.0,USA,CT,Greenwich,65.249.163.133,control
+44979301,1.0,neodev,1.0,VEN,18,Acarigua,190.207.146.62,control
+45158250,1.0,feca,1.0,VEN,,,190.201.29.248,control
+38948541,1.0,neodev,1.0,VEN,,,186.94.46.84,control
+45164629,0.2,feca,0.2,IDN,,,182.1.67.128,control
+45186102,1.0,feca,1.0,PER,14,Chiclayo,181.67.103.104,control
+44190274,1.0,neodev,1.0,VEN,,,190.206.156.14,control
+45182066,1.0,feca,1.0,VEN,,,190.201.112.25,control
+45161007,1.0,feca,1.0,VEN,25,Caracas,186.167.249.155,control
+45183806,1.0,feca,1.0,PER,15,Lima,190.238.75.129,control
+44393250,1.0,clixsense,1.0,VNM,62,Dong Ha,222.252.243.171,control
+45160456,1.0,feca,1.0,PHL,E3,Olongapo City,120.29.100.203,control
+44985688,1.0,neodev,1.0,VEN,,,190.77.206.30,control
+43636927,1.0,neodev,1.0,VEN,13,Barquisimeto,201.248.135.213,control
+44601794,1.0,neodev,1.0,VEN,,,190.201.112.25,control
+45185691,1.0,feca,1.0,VEN,,,190.206.195.19,control
+44845155,1.0,clixsense,1.0,VEN,07,Valencia,190.199.203.241,control
+45120092,1.0,clixsense,1.0,VEN,06,Puerto Ordaz,190.207.119.162,control
+45196473,1.0,clixsense,1.0,USA,NY,New York,104.131.92.125,control
+21547955,1.0,clixsense,1.0,BRA,26,Palhoca,170.254.84.1,control
+45185482,1.0,feca,1.0,VEN,22,San Felipe,200.8.69.105,control
+44593879,1.0,neodev,1.0,VEN,25,Caracas,190.202.205.236,control
+43826177,1.0,neodev,1.0,VEN,06,Ciudad Guayana,190.200.116.97,control
+31649759,1.0,neodev,1.0,VEN,,,201.243.179.176,control
+44559403,1.0,neodev,1.0,VEN,25,Caracas,186.88.31.38,control
+44770074,1.0,clixsense,1.0,VEN,16,Alto De Los Godos,181.17.147.9,control
+43884562,1.0,neodev,1.0,VEN,20,San Cristóbal,186.94.145.10,control
+45159108,1.0,feca,1.0,IDN,04,Jakarta,182.1.6.237,control
+44628734,1.0,clixsense,1.0,COL,,,161.18.103.38,control
+44194675,1.0,neodev,1.0,VEN,07,Valencia,186.14.129.209,control
+43819817,1.0,clixsense,1.0,VEN,23,Maracaibo,190.6.44.90,control
+44165129,1.0,neodev,1.0,VEN,19,Agua Fría,190.198.245.10,control
+45161332,0.8428571428571429,neodev,1.0,ESP,31,Murcia,83.58.221.242,publicgood
+45016061,0.75,neodev,1.0,VEN,07,Valencia,190.203.64.122,publicgood
+45171551,0.8285714285714286,feca,1.0,SRB,00,Beograd,85.222.170.104,publicgood
+45165679,0.8333333333333334,feca,1.0,SRB,00,Belgrade,109.245.227.10,publicgood
+11582908,0.6,clixsense,1.0,SRB,,,178.220.88.15,publicgood
+36143603,1.0,eup_slw,1.0,TUR,,,176.88.198.138,publicgood
+44749466,0.9666666666666667,neodev,1.0,VEN,20,San Cristóbal,186.95.241.164,publicgood
+43684560,0.92,neodev,1.0,VEN,,,186.95.243.52,publicgood
+44678667,0.9714285714285714,neodev,1.0,VEN,20,San Cristóbal,186.95.225.72,publicgood
+44681831,0.92,neodev,1.0,VEN,,,190.78.36.118,publicgood
+45198656,0.6,feca,1.0,EGY,11,Cairo,41.68.27.213,publicgood
+45175751,1.0,feca,1.0,VEN,25,Caracas,186.167.244.95,publicgood
+45080261,0.96,clixsense,1.0,DEU,07,Oberhausen,2.247.243.44,publicgood
+45181307,0.7333333333333333,feca,1.0,VEN,,,190.201.191.144,publicgood
+19638651,0.75,clixsense,1.0,USA,SC,Murrells Inlet,98.122.122.239,publicgood
+45165692,0.75,feca,1.0,SRB,00,Belgrade,109.245.227.214,publicgood
+45163668,0.9,feca,1.0,PHL,B7,Cebu,180.190.194.253,publicgood
+44392447,0.9,neodev,1.0,VEN,02,Barcelona,190.207.85.27,publicgood
+41311221,0.92,clixsense,1.0,UKR,24,Lutsk,178.92.82.11,publicgood
+45158900,1.0,feca,1.0,IND,16,Mumbai,103.10.227.187,publicgood
+45156150,0.9,feca,0.8333,EGY,06,Alexandria,197.50.143.203,publicgood
+44957095,0.35555555555555557,gifthunterclub,0.9231,ESP,54,Ciudad Real,185.61.205.219,publicgood
+45184007,0.75,feca,1.0,VNM,44,Hanoi,123.24.181.147,publicgood
+45120092,0.9333333333333333,clixsense,1.0,VEN,,,186.90.80.129,publicgood
+45136105,0.9,clixsense,1.0,UKR,,,188.163.47.65,publicgood
+45169489,0.95,feca,0.875,EGY,11,Cairo,41.237.63.252,publicgood
+45211562,0.92,neodev,1.0,VEN,25,Caracas,186.167.248.247,publicgood
+45161174,1.0,feca,1.0,BIH,02,Prijedor,134.90.134.235,publicgood
+45173767,0.5,feca,1.0,EGY,11,Cairo,156.216.100.175,publicgood
+45164269,0.75,feca,0.75,EGY,,,154.237.81.248,publicgood
+45169827,0.9,feca,0.875,VEN,,,190.36.18.187,publicgood
+45172610,0.65,feca,1.0,BIH,01,Sarajevo,77.77.216.144,publicgood
+45163481,0.8,feca,1.0,VEN,23,Maracaibo,200.93.51.25,publicgood
+45123800,0.9333333333333333,clixsense,1.0,VEN,,,190.74.167.247,publicgood
+44079738,0.5,clixsense,0.5,EGY,11,Cairo,197.38.223.136,publicgood
+45172391,0.6,feca,1.0,EGY,05,Tanta,156.217.102.53,publicgood
+45166728,0.8,feca,1.0,SRB,,,37.19.110.11,publicgood
+45162578,1.0,feca,1.0,USA,NY,Rochester,216.126.193.3,publicgood
+40544601,1.0,neodev,1.0,VEN,13,Barquisimeto,186.91.229.87,publicgood
+31649759,1.0,neodev,1.0,VEN,20,San Cristóbal,186.94.140.114,publicgood
+43690212,1.0,neodev,1.0,VEN,,,190.73.136.17,publicgood
+45174121,0.9,clixsense,1.0,EGY,11,Cairo,154.130.54.86,publicgood
+45179692,0.7333333333333333,feca,1.0,EGY,,,156.198.202.250,publicgood
+45167110,1.0,feca,1.0,SRB,00,Belgrade,79.101.140.50,publicgood
+44159869,1.0,clixsense,1.0,NIC,10,Managua,138.117.7.91,publicgood
+45184085,0.9,feca,0.8333,SRB,00,Leskovac,178.149.146.148,publicgood
+44995421,0.7,neodev,1.0,VEN,,,190.36.176.131,publicgood
+45176762,0.9,feca,0.8333,EGY,11,Cairo,196.221.53.219,publicgood
+45163655,1.0,feca,1.0,USA,NY,Rochester,216.126.193.3,publicgood
+45178083,0.8,feca,1.0,EGY,11,Cairo,197.41.13.113,publicgood
+45164734,1.0,feca,1.0,EGY,,,156.200.255.20,publicgood
+44732169,0.7,clixsense,0.5,POL,,,5.173.179.248,publicgood
+45183963,0.9,feca,1.0,VNM,44,Hanoi,58.187.163.192,publicgood
+44517029,0.8,clixsense,1.0,VEN,04,Maracay,190.37.66.112,publicgood
+45191948,0.6,feca,0.5,EGY,,,154.238.4.27,publicgood
+43580574,1.0,neodev,1.0,VEN,25,Caracas,190.204.134.69,publicgood
+45158942,1.0,feca,1.0,SRB,00,Leskovac,178.149.147.43,publicgood
+45200642,1.0,feca,1.0,EGY,11,Cairo,41.68.227.246,publicgood
+43888475,1.0,neodev,1.0,VEN,07,Valencia,190.206.9.227,publicgood
+45211008,1.0,feca,1.0,VEN,07,Valencia,190.205.219.165,publicgood
+43884562,1.0,neodev,1.0,VEN,14,Mérida,186.94.134.249,publicgood
+42782471,1.0,clixsense,1.0,VEN,04,Cagua,186.92.126.229,publicgood
+44222386,1.0,neodev,1.0,VEN,25,Caracas,186.167.244.45,publicgood
+44985688,1.0,neodev,1.0,VEN,,,190.198.136.216,publicgood
+45178754,1.0,feca,1.0,IDN,,,36.90.0.204,publicgood
+45160554,1.0,feca,1.0,SRB,00,Belgrade,93.86.111.48,publicgood
+35354906,1.0,clixsense,1.0,ITA,16,Livorno,93.32.77.133,publicgood
+45161495,1.0,feca,1.0,SRB,00,Belgrade,94.189.142.81,publicgood
+45161167,1.0,feca,1.0,VEN,25,Caracas,186.185.150.95,publicgood
+44569395,1.0,clixsense,1.0,VEN,25,Caracas,186.185.181.135,publicgood
+39237911,1.0,neodev,1.0,COL,02,Medellin,181.141.35.35,publicgood
+44912780,1.0,clixsense,1.0,PER,15,Lima,181.176.96.80,publicgood
+45172279,1.0,feca,1.0,EGY,11,Cairo,156.217.130.111,publicgood
+32254876,1.0,neodev,1.0,SLV,05,Santa Tecla,179.5.196.115,publicgood
+44433299,0.8,neodev,0.8,VEN,25,Caracas,201.208.219.47,publicgood
+45204324,1.0,neodev,1.0,VEN,25,Caracas,201.243.233.248,publicgood
+45164555,1.0,feca,1.0,COL,02,Medellin,190.165.1.60,publicgood
+45166200,1.0,feca,1.0,SRB,00,Belgrade,94.189.142.81,publicgood
+44787880,1.0,clixsense,1.0,VEN,,,190.76.249.139,publicgood
+44580994,1.0,neodev,1.0,VEN,25,Caracas,186.185.147.7,publicgood
+44357992,1.0,neodev,1.0,VEN,25,Caracas,186.188.11.67,publicgood
+45162278,1.0,feca,1.0,PHL,21,Talisay,180.190.175.173,publicgood
+45164600,0.6,feca,0.6,EGY,17,Asyut,156.203.72.123,publicgood
+43514056,1.0,clixsense,1.0,VEN,25,Caracas,190.202.205.149,publicgood
+37061905,1.0,clixsense,1.0,MEX,22,Querétaro,189.180.194.171,publicgood
+41202032,0.8,neodev,0.8,VEN,13,Barquisimeto,190.79.151.199,publicgood
+45187360,1.0,feca,1.0,IND,13,Ernakulam,137.97.153.212,publicgood
+43894015,1.0,neodev,1.0,VEN,14,Mérida,186.94.131.163,publicgood
+32108646,1.0,clixsense,1.0,UKR,17,Odessa,91.203.138.8,publicgood
+44592322,0.6,clixsense,0.6,TUR,75,Aksaray,78.176.109.125,publicgood
+45165569,1.0,feca,1.0,SRB,00,Nis,94.228.227.41,publicgood
+44626654,1.0,neodev,1.0,VEN,15,Guarenas,186.14.29.59,publicgood
+44318447,1.0,neodev,1.0,VEN,20,San Cristóbal,186.95.251.220,publicgood
+44695289,0.8,clixsense,0.8,IDN,30,Tangerang,111.95.235.178,publicgood
+45159179,0.8,feca,0.8,VEN,13,Barquisimeto,186.91.104.64,publicgood
+41418535,1.0,neodev,1.0,VEN,15,San Antonio De Los Altos,201.242.156.192,publicgood
+45175251,1.0,feca,1.0,VEN,06,Puerto Ordaz,190.94.230.247,publicgood
+44505580,1.0,neodev,1.0,VEN,25,Caracas,186.167.242.74,publicgood
+45163976,0.8,feca,0.8,EGY,,,102.186.67.127,publicgood
+38661505,1.0,neodev,1.0,VEN,25,Caracas,181.17.39.36,publicgood
+44630534,1.0,clixsense,1.0,VEN,,,186.90.218.47,publicgood
+45175215,1.0,feca,1.0,EGY,,,197.58.221.252,publicgood
+45155728,0.5,feca,0.4,ROU,07,Botosani,79.115.146.248,publicgood
+45157972,1.0,feca,1.0,VEN,21,Valera,186.91.115.124,publicgood
+45159138,1.0,feca,1.0,VEN,25,Caracas,200.84.120.14,publicgood
+45199494,1.0,feca,1.0,EGY,,,197.38.105.110,publicgood
+45163129,1.0,feca,1.0,SRB,00,Nis,178.79.57.78,publicgood
+45160693,1.0,feca,1.0,BRA,27,Biritiba-mirim,138.204.91.65,publicgood
+45161246,1.0,feca,1.0,IDN,30,Bandung,222.124.112.172,publicgood
+44144587,1.0,neodev,1.0,VEN,25,Caracas,186.167.242.3,publicgood
+45165925,1.0,clixsense,1.0,EGY,11,Cairo,196.159.11.237,publicgood
+45179628,1.0,feca,1.0,HND,09,Barra Patuca,181.115.11.75,publicgood
+44314510,1.0,neodev,1.0,VEN,04,Maracay,190.37.91.110,publicgood
+28863630,1.0,clixsense,1.0,IND,02,Hyderabad,115.98.136.238,publicgood
+45053577,1.0,clixsense,1.0,UKR,03,Chernivtsi,109.229.28.233,publicgood
+45195351,1.0,clixsense,1.0,VEN,,,190.199.95.155,publicgood
+44916295,1.0,clixsense,1.0,RUS,,,90.154.4.56,publicgood
+16712241,1.0,clixsense,1.0,VEN,25,Caracas,190.72.145.5,publicgood
+45179934,1.0,feca,1.0,RUS,38,Novorossiysk,109.196.192.140,publicgood
+45173038,1.0,feca,1.0,BIH,01,Sarajevo,77.78.237.55,publicgood
+44743138,1.0,neodev,1.0,PER,15,Lima,190.237.168.205,publicgood
+45175206,1.0,feca,1.0,EGY,,,41.34.78.128,publicgood
+16712241,0.96,clixsense,1.0,VEN,25,Caracas,190.72.145.5,evaluation
+44957095,0.7714285714285715,gifthunterclub,1.0,ESP,54,Ciudad Real,185.61.205.219,evaluation
+45169521,0.9428571428571428,feca,1.0,SRB,00,Belgrade,77.46.214.172,evaluation
+45156150,0.8,feca,1.0,EGY,06,Alexandria,197.50.143.203,evaluation
+6335542,0.9272727272727272,clixsense,1.0,GRC,29,Lamía,79.130.96.150,evaluation
+45164659,1.0,feca,1.0,VNM,20,Ho Chi Minh City,58.187.12.59,evaluation
+45210463,0.8571428571428571,neodev,1.0,URY,10,Montevideo,167.56.153.107,evaluation
+45172014,0.925,feca,1.0,SRB,00,Nis,94.228.227.41,evaluation
+45165569,0.9428571428571428,feca,1.0,SRB,00,Nis,178.79.57.78,evaluation
+45162633,0.7,feca,1.0,VNM,13,,27.73.174.81,evaluation
+44681831,0.9142857142857143,neodev,1.0,VEN,,,190.78.50.52,evaluation
+44076457,0.96,clixsense,1.0,VEN,25,Caracas,186.167.245.168,evaluation
+44749466,0.975,neodev,1.0,VEN,,,190.78.48.17,evaluation
+45164555,0.9333333333333333,feca,1.0,COL,02,Medellin,190.165.1.60,evaluation
+35376158,0.8,clixsense,1.0,COL,,,190.67.134.139,evaluation
+45183928,0.8,feca,1.0,RUS,48,Moscow,188.32.23.90,evaluation
+44922586,0.7,clixsense,1.0,UKR,03,Chernivtsi,109.229.28.233,evaluation
+45161091,0.84,feca,1.0,VEN,25,Caracas,190.202.224.97,evaluation
+44079738,0.92,clixsense,1.0,EGY,,,197.38.6.124,evaluation
+44747839,0.7,clixsense,1.0,VEN,25,Caracas,186.167.245.90,evaluation
+38436499,0.85,neodev,1.0,VEN,25,Caracas,190.39.1.241,evaluation
+45163668,1.0,feca,1.0,PHL,B7,Cebu,180.190.194.253,evaluation
+44978906,0.8,clixsense,1.0,UKR,03,Chernivtsi,109.229.28.233,evaluation
+42198358,0.9333333333333333,neodev,1.0,DZA,20,Blida,41.109.180.243,evaluation
+44678667,0.96,neodev,1.0,VEN,,,190.78.50.116,evaluation
+45202848,0.8666666666666667,feca,1.0,VEN,15,Agua Fria,190.79.124.50,evaluation
+45172279,0.6,feca,1.0,EGY,11,Cairo,156.217.130.111,evaluation
+45200642,0.92,feca,1.0,EGY,,,41.68.237.45,evaluation
+32108646,0.7333333333333333,clixsense,1.0,UKR,17,Odessa,91.203.138.8,evaluation
+45053577,0.75,clixsense,1.0,UKR,03,Chernivtsi,109.229.28.233,evaluation
+45212134,0.48,feca,1.0,EGY,05,Tanta,156.216.147.49,evaluation
+44502111,1.0,neodev,1.0,VEN,04,Maracay,186.92.132.103,evaluation
+44476229,0.8,clixsense,1.0,TUR,55,Samsun,88.230.43.65,evaluation
+45203540,0.85,neodev,1.0,ESP,55,El Barco De Ávila,83.43.233.3,evaluation
+45159692,0.8666666666666667,feca,1.0,IND,28,Kolkata,103.85.97.157,evaluation
+45163481,1.0,feca,1.0,VEN,23,Maracaibo,200.93.51.25,evaluation
+43928055,0.9,neodev,1.0,VEN,07,Valencia,190.205.221.49,evaluation
+42992185,0.65,neodev,1.0,VEN,,,190.78.90.203,evaluation
+45137153,0.9333333333333333,feca,1.0,FRA,B5,Nantes,88.185.219.186,evaluation
+45136105,1.0,clixsense,1.0,UKR,,,188.163.47.65,evaluation
+45008717,0.9333333333333333,clixsense,1.0,VEN,25,Caracas,186.167.251.147,evaluation
+11582908,0.8,clixsense,0.8333,SRB,00,Belgrade,93.86.237.192,evaluation
+41076644,0.8,neodev,1.0,VEN,25,Caracas,190.72.174.15,evaluation
+45155800,0.7,feca,1.0,SRB,00,Leskovac,178.149.137.120,evaluation
+45212935,0.6,feca,1.0,VEN,07,Valencia,190.153.72.201,evaluation
+44010783,1.0,neodev,1.0,VEN,25,Caracas,186.167.242.11,evaluation
+44311593,0.9,neodev,1.0,VEN,15,Guarenas,190.142.223.101,evaluation
+45061316,1.0,neodev,1.0,VEN,,,190.200.14.151,evaluation
+45155862,1.0,feca,1.0,SRB,02,Novi Sad,188.2.82.148,evaluation
+45195553,1.0,neodev,1.0,VEN,07,Valencia,190.205.205.181,evaluation
+45211562,1.0,neodev,1.0,VEN,25,Caracas,186.167.248.217,evaluation
+45172973,1.0,feca,1.0,VEN,25,Caracas,186.167.242.153,evaluation
+45158227,1.0,feca,1.0,ECU,18,Quito,200.125.245.174,evaluation
+16561726,1.0,clixsense,1.0,,,,185.250.67.45,evaluation
+45184006,1.0,feca,1.0,VEN,25,Caracas,186.185.112.54,evaluation
+31298240,0.8,neodev,0.8,VEN,13,Barquisimeto,200.8.174.243,evaluation
+45205356,1.0,feca,1.0,MAR,55,Agadir,160.177.17.32,evaluation
+6345217,0.8,clixsense,0.8,BRA,26,Florianopolis,191.191.35.139,evaluation
+28786138,1.0,clixsense,1.0,MKD,E3,Prilep,92.53.55.211,evaluation
+44500273,1.0,neodev,1.0,VEN,15,Cúa,143.0.96.27,evaluation
+45162371,1.0,feca,1.0,USA,FL,Miami,23.27.45.213,evaluation
+45190761,1.0,feca,1.0,VEN,04,Maracay,186.92.133.60,evaluation
+45164269,1.0,feca,1.0,EGY,,,154.237.62.209,evaluation
+32655193,1.0,clixsense,1.0,SRB,02,Subotica,85.222.190.175,evaluation
+45193948,1.0,feca,1.0,VEN,25,Caracas,200.84.38.237,evaluation
+45203342,1.0,feca,1.0,VNM,43,Biên Hòa,171.226.17.46,evaluation
+44434436,1.0,clixsense,1.0,MDA,60,Balti,109.185.248.129,evaluation
+39103856,1.0,neodev,1.0,VEN,02,Bergantín,201.242.113.239,evaluation
+44194675,1.0,neodev,1.0,VEN,07,Valencia,181.208.8.98,evaluation
+45164823,1.0,feca,1.0,RUS,66,Saint Petersburg,176.116.249.137,evaluation
+44475220,1.0,neodev,1.0,VEN,,,201.242.125.115,evaluation
+45179286,1.0,feca,1.0,BRA,04,Boa Vista,192.140.41.203,evaluation
+44626654,1.0,neodev,1.0,VEN,15,Guarenas,186.14.29.59,evaluation
+44606564,1.0,clixsense,1.0,BGD,,,202.134.13.132,evaluation
+43721661,1.0,neodev,1.0,EGY,,,156.219.74.82,evaluation
+44192774,1.0,clixsense,1.0,IND,02,Palasa,103.44.14.213,evaluation
+45184007,1.0,feca,1.0,VNM,44,Hanoi,123.24.181.147,evaluation
+45172391,1.0,feca,1.0,EGY,05,Tanta,156.216.200.7,evaluation
+36404443,1.0,clixsense,1.0,IND,02,Hyderabad,27.6.128.161,evaluation
+45178413,1.0,feca,1.0,VEN,,,190.36.189.152,evaluation
+45183963,1.0,feca,1.0,VNM,44,Hanoi,42.114.36.46,evaluation
+45184768,1.0,feca,1.0,BRA,27,Sao Paulo,201.27.175.119,evaluation
+45074158,1.0,clixsense,1.0,USA,FL,Miami,23.27.45.213,evaluation
+11075499,0.2,neodev,0.2,VEN,,,190.78.61.29,evaluation
+45174260,1.0,feca,1.0,VEN,07,Valencia,181.208.8.98,evaluation
+41923582,1.0,clixsense,1.0,VEN,25,Caracas,190.201.128.249,evaluation
