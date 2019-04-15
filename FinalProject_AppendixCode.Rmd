@@ -1,0 +1,648 @@
+---
+title: "Untitled"
+author: "Vivian Lu"
+date: "4/14/2019"
+output: html_document
+---
+
+# 1.0: Raw Data Loading 
+
+Load data that was downloaded from Figure8 
+
+```{r}
+raw <- read.csv('combined_scores_by_worker.csv', sep=',', header=TRUE) 
+full_raw <- read.csv('combined_raw_data_nodrop_20190407.csv', sep=',', header=TRUE)
+```
+
+# 2.0: Manipulation 
+
+Insert worker trust characteristic from Figure8 
+```{r}
+trust_df <- unique(full_raw[,c('X_worker_id','X_trust')])
+raw_merged = merge(raw, trust_df)
+```
+
+## 2.1 Summary stats 
+
+This entire section of code explains how the summary statistics were calculated: 
+
+*Basic statistics*: Average scores and trusts (with standard deviations) by experiment group. 
+```{r}
+# TOTAL N 
+control <- raw_merged[raw_merged['treatment']=='control',] #75 people 
+publicgood <- raw_merged[raw_merged['treatment']=='publicgood',] #122 people
+evaluation <- raw_merged[raw_merged['treatment']=='evaluation',] #86 people 
+
+# AVERAGE SCORES AND STANDARD DEVIATIONS OF SCORES IN EACH BRANCH OF EXPERIMENT 
+control_avg <- mean(control[,'score'])
+publicgood_avg <- mean(publicgood[,'score'])
+evaluation_avg <- mean(evaluation[,'score'])
+
+control_sd <-sd(control[,'score'])
+publicgood_sd <- sd(publicgood[,'score'])
+evaluation_sd <- sd(evaluation[,'score'])
+
+# AVERAGE TRUST SCORES AND STANDARD DEVIATIONS OF TRUST SCORES IN EACH BRANCH OF EXPERIMENT 
+control_trust <- mean(control[,'X_trust'])
+publicgood_trust <- mean(publicgood[,'X_trust'])
+evaluation_trust <- mean(evaluation[,'X_trust'])
+
+control_trust_sd <- sd(control[,'X_trust'])
+publicgood_trust_sd<-sd(publicgood[,'X_trust'])
+evaluation_trust_sd<-sd(evaluation[,'X_trust'])
+
+avg_vector <- c(control_avg, publicgood_avg, evaluation_avg) 
+sd_vector <- c(control_sd, publicgood_sd, evaluation_sd)
+avg_trust_vector<-c(control_trust, publicgood_trust, evaluation_trust) 
+sd_trust_vector<-c(control_trust_sd, publicgood_trust_sd, evaluation_trust_sd)
+average_df <- data.frame(avg_vector, sd_vector,avg_trust_vector, sd_trust_vector,row.names=c('control','publicgood','evaluation'))
+colnames(average_df)<-c('average_score', 'stdev_score','avg_trust','sd_trust')
+
+# average_df holds the summary stats for all 3 groups 
+
+average_df
+```
+
+*Within groups*: There are people who received compliance questions, in which you could answer correctly or incorrectly. Those who get compliance questions correct are the 'compliers' and those who did not get compliance questions are the 'non-compliers'. 
+
+Below, we get a sense of how the proportion of compliers (amongst those who got compliance questions) 
+
+```{r}
+get_compliers <- function(df, trtmt) {
+  subdf <- df[df['treatment']==trtmt & df['label']=='Snail',] #received Snail question
+  contributors <- unique(subdf[,'X_worker_id']) #get workers 
+  compliance_score <- c()
+  trust_vector<-c()
+  for (i in 1:length(contributors)) {
+    v<-mean(subdf[subdf['X_worker_id']==contributors[i],][,'correct'])
+    compliance_score[i]<-v
+    # get trust 
+    t<-subdf[subdf['X_worker_id']==contributors[i],][,'X_trust'][1]
+    trust_vector[i]<-t
+  }
+  return(data.frame(contributors, compliance_score, trust_vector))
+}
+
+# total compliers 
+control_compliers<-get_compliers(full_raw, 'control') 
+publicgood_compliers<-get_compliers(full_raw,'publicgood')
+evaluation_compliers<-get_compliers(full_raw,'evaluation')
+
+total_compliance<-c(dim(control_compliers)[1], dim(publicgood_compliers)[1],dim(evaluation_compliers)[1]) 
+actual_compliers<-c(dim(control_compliers[control_compliers['compliance_score']>0,])[1], dim(publicgood_compliers[publicgood_compliers['compliance_score']>0,])[1], dim(evaluation_compliers[evaluation_compliers['compliance_score']>0,])[1]) 
+prop_compliers<-actual_compliers/total_compliance
+compliers_df<-data.frame(total_compliance,actual_compliers, prop_compliers, row.names=c('control','publicgood','evaluation'))
+
+# compliers_df: shows the number of compliers in each experiment group as well as the total who answered the compliance question correctly. 
+
+compliers_df
+```
+
+For those who did get the compliance question, was there anything differing amongst compliers vs noncompliers to suggest that they would be different? We look at `trust`, a score that Figure8 provides for test administrators to judge how 'trustworthy' a contributor is. 
+
+```{r}
+get_avg_comply_trust <- function(df){
+  avg_comply<-mean(df[df['compliance_score']>0,][,'trust_vector'])
+  return(avg_comply)
+}
+
+get_avg_noncomply_trust <- function(df){
+  avg_noncomply<-mean(df[df['compliance_score']==0,][,'trust_vector'])
+  return(avg_noncomply)
+}
+
+get_sd_comply_trust <- function(df){
+  sd_comply<-sd(df[df['compliance_score']>0,][,'trust_vector'])
+  return(sd_comply)
+}
+
+get_sd_noncomply_trust <- function(df){
+  sd_noncomply<-sd(df[df['compliance_score']==0,][,'trust_vector'])
+  return(sd_noncomply)
+}
+
+trust_avgs<-c(get_avg_comply_trust(control_compliers), get_avg_comply_trust(publicgood_compliers), get_avg_comply_trust(evaluation_compliers))
+trust_noncompliers_avgs<-c(get_avg_noncomply_trust(control_compliers), get_avg_noncomply_trust(publicgood_compliers), get_avg_noncomply_trust(evaluation_compliers))
+trust_sds<-c(get_sd_comply_trust(control_compliers), get_sd_comply_trust(publicgood_compliers), get_sd_comply_trust(evaluation_compliers))
+trust_noncompliers_sds<-c(get_sd_noncomply_trust(control_compliers), get_sd_noncomply_trust(publicgood_compliers), get_sd_noncomply_trust(evaluation_compliers))
+
+compliers_df['complier_trust_avgs']<-trust_avgs 
+compliers_df['complier_trust_sds']<-trust_sds
+compliers_df['noncomplier_trust_avgs']<-trust_noncompliers_avgs
+compliers_df['noncomplier_trust_sds']<-trust_noncompliers_sds
+
+compliers_df
+```
+
+For those who did get compliance questions vs. those who did not get compliance questions: Was this a selection bias by Figure8? 
+
+```{r}
+get_nocompl_q <- function(df, trtmt) {
+  subdf <- df[df['treatment']==trtmt & df['label']!='Snail',]
+  contributors <- unique(subdf[,'X_worker_id']) 
+  trust_vector<-c()
+  for (i in 1:length(contributors)) {
+    # get trust 
+    t<-subdf[subdf['X_worker_id']==contributors[i],][,'X_trust'][1]
+    trust_vector[i]<-t
+  }
+  return(data.frame(contributors, trust_vector))
+}
+
+nocompl_q_control<-get_nocompl_q(full_raw,'control')
+nocompl_q_publicgood<-get_nocompl_q(full_raw,'publicgood')
+nocompl_q_evaluation<-get_nocompl_q(full_raw,'evaluation')
+
+nocompl_q_avg<-c(mean(nocompl_q_control[['trust_vector']]),mean(nocompl_q_publicgood[['trust_vector']]),mean(nocompl_q_evaluation[['trust_vector']]))
+nocompl_q_std<-c(sd(nocompl_q_control[['trust_vector']]),sd(nocompl_q_publicgood[['trust_vector']]),sd(nocompl_q_evaluation[['trust_vector']]))
+nocompl_df<-data.frame(nocompl_q_avg, nocompl_q_std, row.names=c('control','publicgood','evaluation'))
+
+compl_q_avg<-c(mean(control_compliers[['trust_vector']]),mean(publicgood_compliers[['trust_vector']]),mean(evaluation_compliers[['trust_vector']]))
+compl_q_std<-c(sd(control_compliers[['trust_vector']]),sd(publicgood_compliers[['trust_vector']]),sd(evaluation_compliers[['trust_vector']]))
+compl_df<-data.frame(compl_q_avg, compl_q_std, row.names=c('control','publicgood','evaluation'))
+
+
+print('No Compliance Question: Trust Characteristics By Group')
+nocompl_df
+print('Compliance Question: Trust Characteristics By Group')
+compl_df
+```
+
+*Breakdown of scores for those who did and did not receive compliance questions:* 
+```{r}
+##### CONTROL 
+yes_q<-control_compliers[,'contributors']
+no_q<-setdiff(raw_merged[raw_merged['treatment']=='control','X_worker_id'],control_compliers[,'contributors'])
+
+c_yes_avg_score<-mean(raw_merged[(raw_merged$treatment=='control') & (raw_merged$X_worker_id %in% yes_q),'score'])
+c_yes_sd_score<-sd(raw_merged[(raw_merged$treatment=='control') & (raw_merged$X_worker_id %in% yes_q),'score'])
+c_no_avg_score<-mean(raw_merged[(raw_merged$treatment=='control') & (raw_merged$X_worker_id %in% no_q),'score'])
+c_no_sd_score<-sd(raw_merged[(raw_merged$treatment=='control') & (raw_merged$X_worker_id %in% no_q),'score'])
+
+
+#### PUBLICGOOD 
+
+yes_q<-publicgood_compliers[,'contributors']
+no_q<-setdiff(raw_merged[raw_merged['treatment']=='publicgood','X_worker_id'],publicgood_compliers[,'contributors'])
+
+p_yes_avg_score<-mean(raw_merged[(raw_merged$treatment=='publicgood') & (raw_merged$X_worker_id %in% yes_q),'score'])
+p_yes_sd_score<-sd(raw_merged[(raw_merged$treatment=='publicgood') & (raw_merged$X_worker_id %in% yes_q),'score'])
+p_no_avg_score<-mean(raw_merged[(raw_merged$treatment=='publicgood') & (raw_merged$X_worker_id %in% no_q),'score'])
+p_no_sd_score<-sd(raw_merged[(raw_merged$treatment=='publicgood') & (raw_merged$X_worker_id %in% no_q),'score'])
+
+#### EVALUATION
+
+yes_q<-evaluation_compliers[,'contributors']
+no_q<-setdiff(raw_merged[raw_merged['treatment']=='evaluation','X_worker_id'],evaluation_compliers[,'contributors'])
+
+e_yes_avg_score<-mean(raw_merged[(raw_merged$treatment=='evaluation') & (raw_merged$X_worker_id %in% yes_q),'score'])
+e_yes_sd_score<-sd(raw_merged[(raw_merged$treatment=='evaluation') & (raw_merged$X_worker_id %in% yes_q),'score'])
+e_no_avg_score<-mean(raw_merged[(raw_merged$treatment=='evaluation') & (raw_merged$X_worker_id %in% no_q),'score'])
+e_no_sd_score<-sd(raw_merged[(raw_merged$treatment=='evaluation') & (raw_merged$X_worker_id %in% no_q),'score'])
+
+#### Combine together 
+
+received_q_avg<-c(c_yes_avg_score, p_yes_avg_score, e_yes_avg_score) 
+received_q_sd<-c(c_yes_sd_score, p_yes_sd_score, e_yes_sd_score)
+noreceived_q_avg<-c(c_no_avg_score, p_no_avg_score, e_no_avg_score)
+noreceived_q_sd<-c(c_no_sd_score, p_no_sd_score, e_no_sd_score)
+
+scores_complynocomply_df<-data.frame(received_q_avg, received_q_sd, noreceived_q_avg, noreceived_q_sd, row.names = c('control','publicgood','evaluation'))
+scores_complynocomply_df
+```
+
+*Breakdown of scores for those who DID answer compliance questions correctly given that they were offered a compliance question:* 
+```{r}
+##### CONTROL 
+correct_comply <- control_compliers[control_compliers$compliance_score>0,'contributors']
+wrong_comply <- control_compliers[control_compliers$compliance_score==0,'contributors']
+# get scores 
+c_correct_avg<-mean(raw_merged[(raw_merged$treatment=='control') & (raw_merged$X_worker_id %in% correct_comply),'score'])
+c_correct_sd<-sd(raw_merged[(raw_merged$treatment=='control') & (raw_merged$X_worker_id %in% correct_comply),'score'])
+c_wrong_avg<-mean(raw_merged[(raw_merged$treatment=='control') & (raw_merged$X_worker_id %in% wrong_comply),'score'])
+c_wrong_sd<-sd(raw_merged[(raw_merged$treatment=='control') & (raw_merged$X_worker_id %in% wrong_comply),'score'])
+
+#### PUBLICGOOD 
+correct_comply <- publicgood_compliers[publicgood_compliers$compliance_score>0,'contributors']
+wrong_comply <- publicgood_compliers[publicgood_compliers$compliance_score==0,'contributors']
+# get scores 
+p_correct_avg<-mean(raw_merged[(raw_merged$treatment=='publicgood') & (raw_merged$X_worker_id %in% correct_comply),'score'])
+p_correct_sd<-sd(raw_merged[(raw_merged$treatment=='publicgood') & (raw_merged$X_worker_id %in% correct_comply),'score'])
+p_wrong_avg<-mean(raw_merged[(raw_merged$treatment=='publicgood') & (raw_merged$X_worker_id %in% wrong_comply),'score'])
+p_wrong_sd<-sd(raw_merged[(raw_merged$treatment=='publicgood') & (raw_merged$X_worker_id %in% wrong_comply),'score'])
+
+#### EVALUATION
+correct_comply <- evaluation_compliers[evaluation_compliers$compliance_score>0,'contributors']
+wrong_comply <- evaluation_compliers[evaluation_compliers$compliance_score==0,'contributors']
+# get scores 
+e_correct_avg<-mean(raw_merged[(raw_merged$treatment=='evaluation') & (raw_merged$X_worker_id %in% correct_comply),'score'])
+e_correct_sd<-sd(raw_merged[(raw_merged$treatment=='evaluation') & (raw_merged$X_worker_id %in% correct_comply),'score'])
+e_wrong_avg<-mean(raw_merged[(raw_merged$treatment=='evaluation') & (raw_merged$X_worker_id %in% wrong_comply),'score'])
+e_wrong_sd<-sd(raw_merged[(raw_merged$treatment=='evaluation') & (raw_merged$X_worker_id %in% wrong_comply),'score'])
+
+# Combine together 
+
+correct_comply_avg<-c(c_correct_avg, p_correct_avg, e_correct_avg)
+correct_comply_sd<-c(c_correct_sd, p_correct_sd, e_correct_sd)
+wrong_comply_avg<-c(c_wrong_avg, p_wrong_avg, e_wrong_avg)
+wrong_comply_sd<-c(c_wrong_sd, p_wrong_sd, e_wrong_sd)
+
+scores_receivedcomply_df<-data.frame(correct_comply_avg, correct_comply_sd, wrong_comply_avg, wrong_comply_sd, row.names = c('control','publicgood','evaluation'))
+scores_receivedcomply_df
+```
+
+In total, those who received compliance questions in our experiment = 134 people, which is nearly a 50% decrease from our original sample size of 283. 
+
+# 3.0 2SLS regression 
+
+We want to know the average treatment effect amongst compliers (p. 150 in text) 
+
+*Manipulation of column indicators below*: 
+```{r}
+# get those who did get compliance questions into 1 dataframe 
+# control_compliers, publicgood_compliers, evaluation_compliers 
+
+# make a column that indicates what group the complier was from 
+control_compliers['treatment']=rep('control', dim(control_compliers)[1])
+publicgood_compliers['treatment']=rep('publicgood', dim(publicgood_compliers)[1])
+evaluation_compliers['treatment']=rep('evaluation', dim(evaluation_compliers)[1])
+
+all_compl_q_workers<-rbind(control_compliers, publicgood_compliers, evaluation_compliers)
+
+received_compliance_q<-c()
+# go through each row of raw_merged and match based on worker_id and treatment 
+for (i in 1:dim(raw_merged)[1]) {
+  worker <- raw_merged[i,'X_worker_id']
+  grp <- levels(raw_merged[i,'treatment'])[levels(raw_merged[i,'treatment'])==raw_merged[i,'treatment']]
+  l<-all_compl_q_workers[(all_compl_q_workers['contributors']==worker) & (all_compl_q_workers['treatment']==grp),]
+  if (dim(l)[1]>0){
+    # worker received compliance Q 
+    received_compliance_q[i]<-1
+  } else {
+    # worker did not receive compliance Q 
+    received_compliance_q[i]<-0
+  }
+}
+raw_merged['received_compliance_q']<-received_compliance_q
+```
+
+At this point, drop those who did not get compliance q (received_compliance_q == 0)
+```{r}
+only_received_compl_q <- raw_merged[raw_merged['received_compliance_q']==1,] 
+# left with 134 people  
+```
+
+Finally, we merge compliance scores for those who received compliance questions. 
+Given that you received a compliance question ('received_compliance_q'==`), you get 1 if you answered correctly, and 0 if answered incorrectly. 
+```{r}
+all_compl_q_workers['complied']<-ifelse(all_compl_q_workers[,'compliance_score']>0,1,0)
+colnames(all_compl_q_workers)<-c('X_worker_id','compliance_score','trust_vector','treatment','complied')
+
+# Merge onto only_received_compl_q based on 2 indexes: X_worker_id, treatment
+
+df_final<-merge(all_compl_q_workers, only_received_compl_q, by.y=c('X_worker_id','treatment'))
+```
+
+Finally, for easier viewing, we make a percent transformation of the original score. 
+```{r}
+df_final['pct_score']=df_final['score']*100
+```
+
+## 3.1 1st stage of 2SLS 
+
+Regress outcome on assigned treatment 
+
+```{r}
+library(lmtest)
+library(sandwich)
+
+# Keep in mind: this is amongst people who DID get compliance questions 
+# treatment is a column that indicates the assigned group (control, evaluation, publicgood)
+# pct_score is our outcome variable (percentage points )
+
+# this is equivalent to just difference in means estimator (ITT)
+itt_fit<-lm(pct_score ~ treatment, data=df_final)
+coeftest(itt_fit, vcovHC(itt_fit))
+```
+
+## 3.2 2nd stage of 2SLS 
+
+Regress actual treatment on assigned treatment. 
+```{r}
+# Treatment received (The actual treatment) is whether or not you read the instructions (which is determined by whether or not you got the compliance question right)
+
+itt_d_fit<-lm(complied ~ treatment, data=df_final) 
+coeftest(itt_d_fit, vcovHC(itt_d_fit))
+```
+
+Notice how we have 2 ITT_d 
+
+## 3.3 Randomization Inference to obtain Confidence Intervals 
+
+First, let's save the ITT_d numbers for each treatment 
+```{r}
+itt_d_eval<-coeftest(itt_d_fit, vcovHC(itt_d_fit))[,1][[1]]+coeftest(itt_d_fit, vcovHC(itt_d_fit))[,1][[2]]
+itt_d_publicgood<-coeftest(itt_d_fit, vcovHC(itt_d_fit))[,1][[1]]+coeftest(itt_d_fit, vcovHC(itt_d_fit))[,1][[3]]
+```
+
+Below, we can grab the estimates of ITT_hat. 
+```{r}
+# This is simply the impact of assignment 
+ITT_hat_control<-coeftest(itt_fit, vcovHC(itt_fit))[,1][[1]] #technically we won't look at this 
+ITT_hat_evaluation<-coeftest(itt_fit, vcovHC(itt_fit))[,1][[2]] # -0.0379 
+ITT_hat_publicgood<-coeftest(itt_fit, vcovHC(itt_fit))[,1][[3]] # -0.0453 
+```
+
+To get the standard error of ITT_hat, we use randomization inference. 
+You shuffle treatment column (control, publicgood, evaluation), and get 2 possible distributions of calculated ITT_hat (one for each treatment branch). From there, we can gather the standard error from the calculated ITT_hats. 
+
+```{r}
+randomization_inf_SE_ITT_hat <- function(df){
+  copy_df <- df[,c('treatment','pct_score')] 
+  shuffle_order<-sample(nrow(copy_df))
+  copy_df['adj_treatment']<-copy_df[,'treatment'][shuffle_order] 
+  modfit<-lm(pct_score ~ adj_treatment, data=copy_df)
+  return(coeftest(modfit, vcovHC(modfit)))
+}
+
+get_SE_ITT <- function(rep_n){
+  #rep_n has no meaning here, it's just a holder
+  output <- randomization_inf_SE_ITT_hat(df_final)
+  rep_itt_control<-output[,1][[1]]
+  rep_itt_eval<-output[,1][[2]]
+  rep_itt_publicgood<-output[,1][[3]]
+  return(c(rep_itt_control, rep_itt_eval, rep_itt_publicgood))
+}
+
+itt_simul_control<-c()
+itt_simul_eval<-c()
+itt_simul_publicgood<-c()
+for (i in 1:10000) {
+  output_row<-get_SE_ITT(1)
+  itt_simul_control[i]<-output_row[1]
+  itt_simul_eval[i]<-output_row[2]
+  itt_simul_publicgood[i]<-output_row[3]
+}
+
+itt_simulation_compl_q<-data.frame(itt_simul_control, itt_simul_eval, itt_simul_publicgood)
+```
+
+We can get the estimated standard error of our ITT_hat estimates below: 
+```{r}
+SE_ITThat_control<-sd(itt_simulation_compl_q$itt_simul_control) 
+SE_ITThat_eval<-sd(itt_simulation_compl_q$itt_simul_eval) 
+SE_ITThat_publicgood<-sd(itt_simulation_compl_q$itt_simul_publicgood) 
+print('Estimated SE(ITT_hat): control, evaluation, publicgood')
+c(SE_ITThat_control, SE_ITThat_eval, SE_ITThat_publicgood)
+```
+
+Thus, we can calculate a 95% confidence interval for our ITT_hat of the 2 treatment groups (public good and evaluation)
+```{r}
+print('ITT_hat eval confidence interval')
+c(ITT_hat_evaluation-(1.96*SE_ITThat_eval),ITT_hat_evaluation+(1.96*SE_ITThat_eval)) 
+print('ITT_hat_publicgood confidence interval')
+c(ITT_hat_publicgood-(1.96*SE_ITThat_publicgood), ITT_hat_publicgood+(1.96*SE_ITThat_publicgood))
+```
+
+An interesting point of note: Let's take a look at the distributions of our simulated ITT_hats. 
+```{r}
+par(mfrow=c(1,2))
+# simulated ITT_hats for evaluation treatment 
+hist(itt_simulation_compl_q$itt_simul_eval, main='10,000 simulations of ITT_hat (evaluation)', xlab='mean(evaluation scores) - mean(control scores)')
+
+# simulated ITT_hats for publicgood treatment 
+hist(itt_simulation_compl_q$itt_simul_publicgood, main='10,000 simulations of ITT_hat (publicgood)', xlab='mean(publicgood_scores)-mean(control scores)')
+```
+
+We can calculate the p-value of our obtained ITT difference in each treatment branch.
+
+```{r}
+# calculate single p-value 
+print('simulated p-value for current ITT_hat of evaluation treatment')
+length(itt_simulation_compl_q$itt_simul_eval[itt_simulation_compl_q$itt_simul_eval < -3.7981])/10000
+
+print('simulated p-value for current ITT_hat of publicgood treatment') 
+length(itt_simulation_compl_q$itt_simul_publicgood[itt_simulation_compl_q$itt_simul_publicgood < -4.5313])/10000
+```
+
+## 3.4 CACE 
+
+CACE is just ITT_hat divided by ITT_d: 
+```{r}
+print('CACE_eval point estimate')
+CACE_eval<-ITT_hat_evaluation/(itt_d_eval)
+CACE_eval
+print('CACE_publicgood point estimate')
+CACE_publicgood<-ITT_hat_publicgood/(itt_d_publicgood)
+CACE_publicgood
+```
+
+We can also calculate a confidence interval for our CACE estimate: 
+```{r}
+SE_CACE_eval<-SE_ITThat_eval/itt_d_eval
+SE_CACE_publicgood<-SE_ITThat_publicgood/itt_d_publicgood
+
+print('CI of CACE evaluation') 
+c(CACE_eval-(1.96*SE_CACE_eval), CACE_eval+(1.96*SE_CACE_eval))
+print('CI of CACE publicgood')
+c(CACE_publicgood-(1.96*SE_CACE_publicgood), CACE_publicgood+(1.96*SE_CACE_publicgood))
+```
+
+
+# 4.0 Checking for Repeaters 
+
+We note that there are definitely some repeaters (people who took more than 1 test). There is not a known way of preventing contributors from taking multiple tests on the platform Figure8. Contributors themselves log on and take tests as they see fit. 
+```{r}
+length(intersect(unique(control[['X_worker_id']]),unique(publicgood[['X_worker_id']]))) #10
+length(intersect(unique(control[['X_worker_id']]),unique(evaluation[['X_worker_id']]))) #7
+length(intersect(unique(publicgood[['X_worker_id']]),unique(evaluation[['X_worker_id']]))) #23 
+```
+
+In total, it looks like there are 40 repeaters. 
+
+Our original summary stats were for everyone. 
+
+Let's break it down to summary stats for all non-repeaters: 
+```{r}
+repeaters<-c(intersect(unique(control[['X_worker_id']]),unique(publicgood[['X_worker_id']])), intersect(unique(control[['X_worker_id']]),unique(evaluation[['X_worker_id']])), intersect(unique(publicgood[['X_worker_id']]),unique(evaluation[['X_worker_id']])))
+
+full_merged<-read.csv('combined_full_workers_final_20190414.csv')
+nonrepeaters<-full_merged[!full_merged$X_worker_id %in% repeaters,]
+```
+
+Basic stats: 
+```{r}
+# TOTAL N 
+r_control <- nonrepeaters[nonrepeaters['treatment']=='control',] #61 people 
+r_publicgood <- nonrepeaters[nonrepeaters['treatment']=='publicgood',] #92 people
+r_evaluation <- nonrepeaters[nonrepeaters['treatment']=='evaluation',] #59 people 
+
+# AVERAGE SCORES AND STANDARD DEVIATIONS OF SCORES IN EACH BRANCH OF EXPERIMENT 
+r_control_avg <- mean(r_control[,'score'])
+r_publicgood_avg <- mean(r_publicgood[,'score'])
+r_evaluation_avg <- mean(r_evaluation[,'score'])
+
+r_control_sd <-sd(r_control[,'score'])
+r_publicgood_sd <- sd(r_publicgood[,'score'])
+r_evaluation_sd <- sd(r_evaluation[,'score'])
+
+# AVERAGE TRUST SCORES AND STANDARD DEVIATIONS OF TRUST SCORES IN EACH BRANCH OF EXPERIMENT 
+r_control_trust <- mean(r_control[,'X_trust'])
+r_publicgood_trust <- mean(r_publicgood[,'X_trust'])
+r_evaluation_trust <- mean(r_evaluation[,'X_trust'])
+
+r_control_trust_sd <- sd(r_control[,'X_trust'])
+r_publicgood_trust_sd<-sd(r_publicgood[,'X_trust'])
+r_evaluation_trust_sd<-sd(r_evaluation[,'X_trust'])
+
+r_avg_vector <- c(r_control_avg, r_publicgood_avg, r_evaluation_avg) 
+r_sd_vector <- c(r_control_sd, r_publicgood_sd, r_evaluation_sd)
+r_avg_trust_vector<-c(r_control_trust, r_publicgood_trust, r_evaluation_trust) 
+r_sd_trust_vector<-c(r_control_trust_sd, r_publicgood_trust_sd, r_evaluation_trust_sd)
+r_average_df <- data.frame(r_avg_vector, r_sd_vector,r_avg_trust_vector, r_sd_trust_vector,row.names=c('control','publicgood','evaluation'))
+colnames(r_average_df)<-c('average_score', 'stdev_score','avg_trust','sd_trust')
+
+# r_average_df holds the summary stats for all 3 groups 
+
+r_average_df
+```
+
+```{r}
+nonrepeaters_fullraw<-full_raw[!full_raw$X_worker_id %in% repeaters,]
+
+# total compliers 
+r_control_compliers<-get_compliers(nonrepeaters_fullraw, 'control') 
+r_publicgood_compliers<-get_compliers(nonrepeaters_fullraw,'publicgood')
+r_evaluation_compliers<-get_compliers(nonrepeaters_fullraw,'evaluation')
+
+r_total_compliance<-c(dim(r_control_compliers)[1], dim(r_publicgood_compliers)[1],dim(r_evaluation_compliers)[1]) 
+r_actual_compliers<-c(dim(r_control_compliers[r_control_compliers['compliance_score']>0,])[1], dim(r_publicgood_compliers[r_publicgood_compliers['compliance_score']>0,])[1], dim(r_evaluation_compliers[r_evaluation_compliers['compliance_score']>0,])[1]) 
+r_prop_compliers<-r_actual_compliers/r_total_compliance
+r_compliers_df<-data.frame(r_total_compliance,r_actual_compliers, r_prop_compliers, row.names=c('control','publicgood','evaluation'))
+
+# compliers_df: shows the number of compliers in each experiment group as well as the total who answered the compliance question correctly. 
+
+r_compliers_df
+```
+
+```{r}
+#For those who did get the compliance question, was there anything differing amongst compliers vs noncompliers to suggest that they would be different? We look at `trust`, a score that Figure8 provides for test administrators to judge how 'trustworthy' a contributor is. 
+
+r_trust_avgs<-c(get_avg_comply_trust(r_control_compliers), get_avg_comply_trust(r_publicgood_compliers), get_avg_comply_trust(r_evaluation_compliers))
+r_trust_noncompliers_avgs<-c(get_avg_noncomply_trust(r_control_compliers), get_avg_noncomply_trust(r_publicgood_compliers), get_avg_noncomply_trust(r_evaluation_compliers))
+r_trust_sds<-c(get_sd_comply_trust(r_control_compliers), get_sd_comply_trust(r_publicgood_compliers), get_sd_comply_trust(r_evaluation_compliers))
+r_trust_noncompliers_sds<-c(get_sd_noncomply_trust(r_control_compliers), get_sd_noncomply_trust(r_publicgood_compliers), get_sd_noncomply_trust(r_evaluation_compliers))
+
+r_compliers_df['complier_trust_avgs']<-r_trust_avgs 
+r_compliers_df['complier_trust_sds']<-r_trust_sds
+r_compliers_df['noncomplier_trust_avgs']<-r_trust_noncompliers_avgs
+r_compliers_df['noncomplier_trust_sds']<-r_trust_noncompliers_sds
+
+r_compliers_df
+```
+
+
+
+```{r}
+#For those who did get compliance questions vs. those who did not get compliance questions: Was this a selection bias by Figure8? 
+
+r_nocompl_q_control<-get_nocompl_q(nonrepeaters_fullraw,'control')
+r_nocompl_q_publicgood<-get_nocompl_q(nonrepeaters_fullraw,'publicgood')
+r_nocompl_q_evaluation<-get_nocompl_q(nonrepeaters_fullraw,'evaluation')
+
+r_nocompl_q_avg<-c(mean(r_nocompl_q_control[['trust_vector']]),mean(r_nocompl_q_publicgood[['trust_vector']]),mean(r_nocompl_q_evaluation[['trust_vector']]))
+r_nocompl_q_std<-c(sd(r_nocompl_q_control[['trust_vector']]),sd(r_nocompl_q_publicgood[['trust_vector']]),sd(r_nocompl_q_evaluation[['trust_vector']]))
+r_nocompl_df<-data.frame(r_nocompl_q_avg, r_nocompl_q_std, row.names=c('control','publicgood','evaluation'))
+
+r_compl_q_avg<-c(mean(r_control_compliers[['trust_vector']]),mean(r_publicgood_compliers[['trust_vector']]),mean(r_evaluation_compliers[['trust_vector']]))
+r_compl_q_std<-c(sd(r_control_compliers[['trust_vector']]),sd(r_publicgood_compliers[['trust_vector']]),sd(r_evaluation_compliers[['trust_vector']]))
+r_compl_df<-data.frame(r_compl_q_avg, r_compl_q_std, row.names=c('control','publicgood','evaluation'))
+
+
+print('No Compliance Question: Trust Characteristics By Group (nonrepeaters only)')
+r_nocompl_df
+print('Compliance Question: Trust Characteristics By Group (nonrepeaters only)')
+r_compl_df
+```
+
+```{r}
+##### CONTROL 
+r_yes_q<-r_control_compliers[,'contributors']
+r_no_q<-setdiff(nonrepeaters[nonrepeaters['treatment']=='control','X_worker_id'],r_control_compliers[,'contributors'])
+
+r_c_yes_avg_score<-mean(nonrepeaters[(nonrepeaters$treatment=='control') & (nonrepeaters$X_worker_id %in% r_yes_q),'score'])
+r_c_yes_sd_score<-sd(nonrepeaters[(nonrepeaters$treatment=='control') & (nonrepeaters$X_worker_id %in% r_yes_q),'score'])
+r_c_no_avg_score<-mean(nonrepeaters[(nonrepeaters$treatment=='control') & (nonrepeaters$X_worker_id %in% r_no_q),'score'])
+r_c_no_sd_score<-sd(nonrepeaters[(nonrepeaters$treatment=='control') & (nonrepeaters$X_worker_id %in% r_no_q),'score'])
+
+
+#### PUBLICGOOD 
+
+r_yes_q<-r_publicgood_compliers[,'contributors']
+r_no_q<-setdiff(nonrepeaters[nonrepeaters['treatment']=='publicgood','X_worker_id'],r_publicgood_compliers[,'contributors'])
+
+r_p_yes_avg_score<-mean(nonrepeaters[(nonrepeaters$treatment=='publicgood') & (nonrepeaters$X_worker_id %in% r_yes_q),'score'])
+r_p_yes_sd_score<-sd(nonrepeaters[(nonrepeaters$treatment=='publicgood') & (nonrepeaters$X_worker_id %in% r_yes_q),'score'])
+r_p_no_avg_score<-mean(nonrepeaters[(nonrepeaters$treatment=='publicgood') & (nonrepeaters$X_worker_id %in% r_no_q),'score'])
+r_p_no_sd_score<-sd(nonrepeaters[(nonrepeaters$treatment=='publicgood') & (nonrepeaters$X_worker_id %in% r_no_q),'score'])
+
+#### EVALUATION
+
+r_yes_q<-evaluation_compliers[,'contributors']
+r_no_q<-setdiff(nonrepeaters[nonrepeaters['treatment']=='evaluation','X_worker_id'],r_evaluation_compliers[,'contributors'])
+
+r_e_yes_avg_score<-mean(nonrepeaters[(nonrepeaters$treatment=='evaluation') & (nonrepeaters$X_worker_id %in% r_yes_q),'score'])
+r_e_yes_sd_score<-sd(nonrepeaters[(nonrepeaters$treatment=='evaluation') & (nonrepeaters$X_worker_id %in% r_yes_q),'score'])
+r_e_no_avg_score<-mean(nonrepeaters[(nonrepeaters$treatment=='evaluation') & (nonrepeaters$X_worker_id %in% r_no_q),'score'])
+r_e_no_sd_score<-sd(nonrepeaters[(nonrepeaters$treatment=='evaluation') & (nonrepeaters$X_worker_id %in% r_no_q),'score'])
+
+#### Combine together 
+
+r_received_q_avg<-c(r_c_yes_avg_score, r_p_yes_avg_score, r_e_yes_avg_score) 
+r_received_q_sd<-c(r_c_yes_sd_score, r_p_yes_sd_score, r_e_yes_sd_score)
+r_noreceived_q_avg<-c(r_c_no_avg_score, r_p_no_avg_score, r_e_no_avg_score)
+r_noreceived_q_sd<-c(r_c_no_sd_score, r_p_no_sd_score, r_e_no_sd_score)
+
+r_scores_complynocomply_df<-data.frame(r_received_q_avg, r_received_q_sd, r_noreceived_q_avg, r_noreceived_q_sd, row.names = c('control','publicgood','evaluation'))
+r_scores_complynocomply_df
+```
+
+```{r}
+##### CONTROL 
+r_correct_comply <- r_control_compliers[r_control_compliers$compliance_score>0,'contributors']
+r_wrong_comply <- r_control_compliers[r_control_compliers$compliance_score==0,'contributors']
+# get scores 
+r_c_correct_avg<-mean(nonrepeaters[(nonrepeaters$treatment=='control') & (nonrepeaters$X_worker_id %in% r_correct_comply),'score'])
+r_c_correct_sd<-sd(nonrepeaters[(nonrepeaters$treatment=='control') & (nonrepeaters$X_worker_id %in% r_correct_comply),'score'])
+r_c_wrong_avg<-mean(nonrepeaters[(nonrepeaters$treatment=='control') & (nonrepeaters$X_worker_id %in% r_wrong_comply),'score'])
+r_c_wrong_sd<-sd(nonrepeaters[(nonrepeaters$treatment=='control') & (nonrepeaters$X_worker_id %in% r_wrong_comply),'score'])
+
+#### PUBLICGOOD 
+r_correct_comply <- r_publicgood_compliers[r_publicgood_compliers$compliance_score>0,'contributors']
+r_wrong_comply <- r_publicgood_compliers[publicgood_compliers$compliance_score==0,'contributors']
+# get scores 
+r_p_correct_avg<-mean(nonrepeaters[(nonrepeaters$treatment=='publicgood') & (nonrepeaters$X_worker_id %in% r_correct_comply),'score'])
+r_p_correct_sd<-sd(nonrepeaters[(nonrepeaters$treatment=='publicgood') & (nonrepeaters$X_worker_id %in% r_correct_comply),'score'])
+r_p_wrong_avg<-mean(nonrepeaters[(nonrepeaters$treatment=='publicgood') & (nonrepeaters$X_worker_id %in% r_wrong_comply),'score'])
+r_p_wrong_sd<-sd(nonrepeaters[(nonrepeaters$treatment=='publicgood') & (nonrepeaters$X_worker_id %in% r_wrong_comply),'score'])
+
+#### EVALUATION
+r_correct_comply <- r_evaluation_compliers[r_evaluation_compliers$compliance_score>0,'contributors']
+r_wrong_comply <- r_evaluation_compliers[evaluation_compliers$compliance_score==0,'contributors']
+# get scores 
+r_e_correct_avg<-mean(nonrepeaters[(nonrepeaters$treatment=='evaluation') & (nonrepeaters$X_worker_id %in% r_correct_comply),'score'])
+r_e_correct_sd<-sd(nonrepeaters[(nonrepeaters$treatment=='evaluation') & (nonrepeaters$X_worker_id %in% r_correct_comply),'score'])
+r_e_wrong_avg<-mean(nonrepeaters[(nonrepeaters$treatment=='evaluation') & (nonrepeaters$X_worker_id %in% r_wrong_comply),'score'])
+r_e_wrong_sd<-sd(nonrepeaters[(nonrepeaters$treatment=='evaluation') & (nonrepeaters$X_worker_id %in% r_wrong_comply),'score'])
+
+# Combine together 
+
+r_correct_comply_avg<-c(r_c_correct_avg, r_p_correct_avg, r_e_correct_avg)
+r_correct_comply_sd<-c(r_c_correct_sd, r_p_correct_sd, r_e_correct_sd)
+r_wrong_comply_avg<-c(r_c_wrong_avg, r_p_wrong_avg, r_e_wrong_avg)
+r_wrong_comply_sd<-c(r_c_wrong_sd, r_p_wrong_sd, r_e_wrong_sd)
+
+r_scores_receivedcomply_df<-data.frame(r_correct_comply_avg, r_correct_comply_sd, r_wrong_comply_avg, r_wrong_comply_sd, row.names = c('control','publicgood','evaluation'))
+r_scores_receivedcomply_df
+```
+
