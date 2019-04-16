@@ -286,6 +286,21 @@ for (i in 1:dim(raw_merged)[1]) {
 raw_merged['received_compliance_q']<-received_compliance_q
 ```
 
+Just to be sure: let's view distributions of trust scores for those who did receive compliance vs those who did not receive compliance 
+```{r}
+#par(mfrow=c(1,2))
+p1<-hist(raw_merged[raw_merged$received_compliance_q==1,'X_trust'], breaks=10)
+p2<-hist(raw_merged[raw_merged$received_compliance_q==0,'X_trust'], breaks=20)
+plot(p1, col=rgb(0,0,1,1/4), xlim=c(0.2,1), main='Trust Distribution', xlab='Trust Score')
+plot(p2, col=rgb(1,0,0,1/4), xlim=c(0.2,1),add=T, main='Trust Distribution')
+legend(x=0.3,y=80,legend=c('Received Comp Q','Did Not Receive Comp Q'), 
+       col=c(rgb(0,0,1,1/4), rgb(1,0,0,1/4)), lty=1, cex=0.8)
+```
+
+Distributions of trust (pre-determined value) across those who received and did not receive compliance Q were very close to each other. 
+
+
+
 At this point, drop those who did not get compliance q (received_compliance_q == 0)
 ```{r}
 only_received_compl_q <- raw_merged[raw_merged['received_compliance_q']==1,] 
@@ -644,5 +659,17 @@ r_wrong_comply_sd<-c(r_c_wrong_sd, r_p_wrong_sd, r_e_wrong_sd)
 
 r_scores_receivedcomply_df<-data.frame(r_correct_comply_avg, r_correct_comply_sd, r_wrong_comply_avg, r_wrong_comply_sd, row.names = c('control','publicgood','evaluation'))
 r_scores_receivedcomply_df
+```
+
+
+Histogram to view their trust scores between those who did and did not receive compliance Q after we drop repeaters: 
+
+```{r}
+p1<-hist(nonrepeaters[nonrepeaters$received_compliance_q==1,'X_trust'], breaks=10)
+p2<-hist(nonrepeaters[nonrepeaters$received_compliance_q==0,'X_trust'], breaks=20)
+plot(p1, col=rgb(0,0,1,1/4), xlim=c(0.2,1), main='Trust Distribution (nonrepeaters)', xlab='Trust Score')
+plot(p2, col=rgb(1,0,0,1/4), xlim=c(0.2,1),add=T, main='Trust Distribution (nonrepeaters)')
+legend(x=0.3,y=80,legend=c('Received Comp Q','Did Not Receive Comp Q'), 
+       col=c(rgb(0,0,1,1/4), rgb(1,0,0,1/4)), lty=1, cex=0.8) 
 ```
 
